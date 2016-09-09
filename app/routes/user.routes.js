@@ -1,6 +1,4 @@
-
 module.exports = function(app, passport) {
-
 
   app.get('/user', isLoggedIn, function(req, res) {
     res.render('pages/user/user', {
@@ -42,12 +40,12 @@ module.exports = function(app, passport) {
     failureFlash: true // allow flash messages
   }));
 
-
   //Log out users
   app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
   });
+
 
 };
 

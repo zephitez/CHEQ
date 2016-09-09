@@ -14,8 +14,8 @@ var userSchema = mongoose.Schema({
     email: {
       type: String,
       required: true
-
     },
+
     password: {
       type: String,
       required: true
@@ -23,7 +23,6 @@ var userSchema = mongoose.Schema({
 
 });
 
-//method
 //generation hash
 userSchema.methods.generateHash = function(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(7), null);

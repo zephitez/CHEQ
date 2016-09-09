@@ -15,11 +15,4 @@ module.exports = function(app) {
     }); //load the about.ejs file
   });
 
-
-
-
-
-
-
-
 };
