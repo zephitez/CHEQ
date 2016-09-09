@@ -5,31 +5,31 @@
     </a>
   </div>
 
-  <div class="nav-right nav-menu">
+  <div class="nav-right">
     <a class="nav-item" href="#">
       Home
     </a>
     <a class="nav-item" href="#">
       About
     </a>
-    <% if (typeof user == "undefined") { %>
-    <a class="nav-item" href="/signup">
-      Sign Up
-    </a>
-    <a class="nav-item" href="/login">
-      Login
-    </a>
 
-    <% } else { %>
-
-    <a class="nav-item" href="/profile">
-      Profile
-    </a>
-    <a class="nav-item" href="/logout">
-      Logout
-    </a>
-
-    <% } %>
+    <span class="nav-item">
+      <% if (typeof user == "undefined") { %>
+        <a class="button" href="/signup" >
+          <span>Sign Up</span>
+        </a>
+        <a class="button" href="/login">
+          <span>Login</span>
+        </a>
+      <% } else { %>
+        <a class="button" href="/profile">
+          <span>Profile</spam>
+        </a>
+        <a class="button" href="/logout">
+          <span>Logout</spam>
+        </a>
+      <% } %>
+    </span>
 
   </div>
 
