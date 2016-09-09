@@ -34,26 +34,29 @@ module.exports = function(passport) {
       passReqToCallback: true //allows us to pass back entire request to the callback
     },
     function(req, email, password, done) {
+
       //asynchronous
       //User.findOne won't fire unless data is sent back
       process.nextTick(function() {
         User.findOne({
-          'local.email': email
+          'email': email
         }, function(err, user) {
+
           //if error return error
           if (err) return done(err);
+
           //check if theres user with that email
           if (user) {
             return done(null, false, req.flash('signupMessage', 'Someone use this email liao'));
-          } else {
+          }  else {
 
             //create LocalStrategy
             var newUser = new User();
 
             //set local credentials
-
-            newUser.local.email = email;
-            newUser.local.password = newUser.generateHash(password);
+            newUser.username = req.body.username;
+            newUser.email = email;
+            newUser.password = newUser.generateHash(password);
 
             //save it
 
@@ -80,7 +83,7 @@ module.exports = function(passport) {
       // find a user whose email is the same as the forms email
       // we are checking to see if the user trying to login already exists
       User.findOne({
-        'local.email': email
+        'email': userlogin
       }, function(err, user) {
         // if there are any errors, return the error before anything else
         if (err)
@@ -88,7 +91,8 @@ module.exports = function(passport) {
 
         // if no user is found, return the message
         if (!user)
-          return done(null, false, req.flash('loginMessage', 'No such user leh.. sorry')); // req.flash is the way to set flashdata using connect-flash
+          return done(null, false, req.flash('loginMessage', 'No such user leh.. sorry'));
+          // req.flash is the way to set flashdata using connect-flash
 
         // if the user is found but the password is wrong
         if (!user.validPassword(password))
@@ -99,4 +103,4 @@ module.exports = function(passport) {
       });
 
     }));
-}
+};
