@@ -7,11 +7,22 @@ var mongoose = require('mongoose'),
 var userSchema = mongoose.Schema({
 
 
-    first_name: String,
-    last_name: String,
-    username: String,
-    email : String,
-    password : String
+    // first_name: String,
+    // last_name: String,
+    username: {
+      type: String,
+      required: true
+
+    },
+    email: {
+      type: String,
+      required: true
+
+    },
+    password: {
+      type: String,
+      required: true
+    }
 
 
 });
@@ -25,7 +36,7 @@ userSchema.methods.generateHash = function(password) {
 
   //check against our db user password
 userSchema.methods.validPassword = function(password) {
-  return bcrypt.compareSync(password, this.local.password);
+  return bcrypt.compareSync(password, this.password);
 };
 
 //create model and expose to app

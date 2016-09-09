@@ -45,7 +45,8 @@ module.exports = function(){
   //require routes
 
   require('../app/routes/user.routes')(app, passport);
-
+  require('../app/routes/static.routes')(app);
+  // require('../app/routes/static.routes')(app, passport);
 
   //create routes for public folder
   app.use(express.static('./public'));
