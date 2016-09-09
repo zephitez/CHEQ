@@ -1,5 +1,5 @@
 {
-  "name": "jiak_simi",
+  "name": "cheq",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -9,11 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zephitez/OMPM.git"
+    "url": "git+https://github.com/zephitez/CHEQ.git"
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://github.com/zephitez/OMPM#readme",
+  "homepage": "https://github.com/zephitez/CHEQ#readme",
   "dependencies": {
     "bcrypt-nodejs": "latest",
     "body-parser": "^1.15.2",
