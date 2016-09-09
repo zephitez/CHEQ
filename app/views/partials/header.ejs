@@ -1,22 +1,36 @@
-<nav class="navbar navbar-default navbar-static-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a href="/"><h1>O$P$</h1></a>
-    </div>
-
-    <ul class="navbar">
-        <% if (typeof user == "undefined") { %>
-
-        <li><a href="/about"><span class="glyphicon glyphicon-cutlery"></span>  About</a></li>
-        <li><a href="/signup"><span class="glyphicon glyphicon-user"></span>  Sign Up</a></li>
-        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
-
-        <% } else { %>
-
-        <li><a href="/profile"><span class="glyphicon glyphicon-user"></span>  Profile</a></li>
-        <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
-
-        <% } %>
-   </ul>
+<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item is-brand" href="#">
+      <h1>O$P$</h1>
+    </a>
   </div>
+
+  <div class="nav-right nav-menu">
+    <a class="nav-item" href="#">
+      Home
+    </a>
+    <a class="nav-item" href="#">
+      About
+    </a>
+    <% if (typeof user == "undefined") { %>
+    <a class="nav-item" href="/signup">
+      Sign Up
+    </a>
+    <a class="nav-item" href="/login">
+      Login
+    </a>
+
+    <% } else { %>
+
+    <a class="nav-item" href="/profile">
+      Profile
+    </a>
+    <a class="nav-item" href="/logout">
+      Logout
+    </a>
+
+    <% } %>
+
+  </div>
+
 </nav>
