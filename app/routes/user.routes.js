@@ -52,13 +52,12 @@ module.exports = function(app, passport) {
     failureFlash: true
   }));
 
-  //PROFILE SECTION
-  //we will want this protected so you have to be logged in to visit
-  //we will use route middleware to verify this (this isLoggedIn function)
+  //DASHBOARD SECTION- show upon log in
 
-  app.get('/profile', isLoggedIn, function(req, res) {
-    res.render('pages/profile', {
-      title: 'Profile',
+  app.get('/dashboard', //isLoggedIn,
+  function(req, res) {
+    res.render('pages/dashboard', {
+      title: 'Dashboard',
       message: req.flash('authMessage'),
       user: req.user //get the user out of  session and pass to template
     });
