@@ -15,6 +15,7 @@
   "license": "ISC",
   "homepage": "https://github.com/zephitez/OMPM#readme",
   "dependencies": {
+    "babel": "^6.5.2",
     "bcrypt-nodejs": "latest",
     "body-parser": "^1.15.2",
     "bulma": "^0.1.2",
@@ -30,7 +31,10 @@
     "morgan": "^1.7.0",
     "passport": "~0.1.17",
     "passport-local": "~0.1.6",
-    "request": "^2.74.0"
+    "react": "^15.3.1",
+    "react-router": "^2.8.0",
+    "request": "^2.74.0",
+    "webpack": "^1.13.2"
   },
   "devDependencies": {
     "jasmine-node": "^1.14.5"

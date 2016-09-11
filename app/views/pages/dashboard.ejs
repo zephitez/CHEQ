@@ -1,18 +1,14 @@
 <div class="container">
 
-    <div class="page-header text-center">
-        <h2>Vendor Submission Page</h2>
-
+  <!-- show any messages that come back with authentication -->
+  <% if (message.length > 0) { %>
+    <div class="alert alert-success">
+        <%= message %>
     </div>
+  <% } %>
 
-    <!-- show any messages that come back with authentication -->
-    <% if (message.length > 0) { %>
-        <div class="alert alert-success">
-            <%= message %>
-        </div>
-        <% } %>
-
-
-            
+  <div id="app">
+  <!-- render react things -->
+  </div>
 
 </div>
