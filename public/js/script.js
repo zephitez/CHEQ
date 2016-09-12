@@ -85,8 +85,8 @@
 	        null,
 	        _react2.default.createElement(
 	          'h3',
-	          null,
-	          ' hello world '
+	          { className: 'title' },
+	          'cool beans'
 	        )
 	      );
 	    }
