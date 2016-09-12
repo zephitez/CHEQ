@@ -27,7 +27,7 @@ userSchema.methods.generateHash = function(password) {
 
   //check against our db user password
 userSchema.methods.validPassword = function(password) {
-  return bcrypt.compareSync(password, this.password);
+  return bcrypt.compareSync(password, this.local.password);
 };
 
 //create model and expose to app
