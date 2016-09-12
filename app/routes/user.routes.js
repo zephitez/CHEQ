@@ -54,10 +54,19 @@ module.exports = function(app, passport) {
 
   //DASHBOARD SECTION- show upon log in
 
-  app.get('/dashboard/*', //isLoggedIn,
+  app.get('/dashboard', //isLoggedIn,
   function(req, res) {
     res.render('pages/dashboard', {
       title: 'Dashboard',
+      message: req.flash('authMessage'),
+      user: req.user //get the user out of  session and pass to template
+    });
+  });
+
+  app.get('/dashboard/*', //isLoggedIn,
+  function(req, res) {
+    res.render('pages/dashboard', {
+      title: 'Username',
       message: req.flash('authMessage'),
       user: req.user //get the user out of  session and pass to template
     });
