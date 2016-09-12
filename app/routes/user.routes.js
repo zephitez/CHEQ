@@ -54,7 +54,7 @@ module.exports = function(app, passport) {
 
   //DASHBOARD SECTION- show upon log in
 
-  app.get('/dashboard', //isLoggedIn,
+  app.get('/dashboard/*', //isLoggedIn,
   function(req, res) {
     res.render('pages/dashboard', {
       title: 'Dashboard',
