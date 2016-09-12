@@ -1,9 +1,10 @@
-//load the things we needed
 var mongoose = require('mongoose'),
-    bcrypt = require('bcrypt-nodejs');
+    bcrypt = require('bcrypt-nodejs'),
+    Schema = mongoose.Schema,
+    Transaction = ('./transaction');
 
 //define schema
-var userSchema = mongoose.Schema({
+var userSchema = Schema({
 
   local : {
       email    : String,
@@ -15,8 +16,9 @@ var userSchema = mongoose.Schema({
       email    : String,
       name     : String,
       photo    : String,
-      friends  : String
-    }
+      friends  : [{ type: String }]
+    },
+    transactions : [{ type: Schema.Types.ObjectId, ref: 'Transaction'}]
   });
 
 

@@ -92,22 +92,20 @@ passport.use('local-login', new LocalStrategy({
                 if (err) {
                   return done(err);
                 }
-                console.log('after error')
-                // if no user is found, return the message
+                  // if no user is found, return the message
                 if (!user) {
-                  console.log('user block')
+
                   return done(null, false, req.flash('loginMessage', 'No user found.'));
 
                 }
-                console.log('after !user')
-                console.log(user)
+
                 user.validPassword(password)
               //   if (!user.validPassword(password)) {
               //     console.log('password wrong')
               //     return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
               //
               // }
-              console.log('after nopassword')
+
                 // all is well, return user
                 return done(null, user);
 
