@@ -36,44 +36,45 @@ module.exports = function(passport) {
       //User.findOne won't fire unless data is sent back
       process.nextTick(function() {
         User.findOne({
-          'local.email': email
-        },  function(err, existingUser) {
+          'local.email' :  email
+        },  function(err, existingLocalUser) {
 
                 // if there are any errors, return the error
                 if (err)
                     return done(err);
 
                 // check to see if there's already a user with that email
-                if (existingUser)
-                    return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                if (existingLocalUser) {
+                    return done(null, false, req.flash('signupMessage', 'This email already exist in our database.'));
+                  } else {
+                //  If we have facebook email, we will link up local
+                    User.findOne({
+                     'facebook.email': email
+                   }, function(err, existingFacebookUser) {
+                      if (err) throw err;
 
-                //  If we're logged in, we're connecting a new local account.
-                if(req.user) {
-                    var user            = req.user;
-                    user.local.email    = email;
-                    user.local.password = user.generateHash(password);
-                    user.save(function(err) {
-                        if (err) throw err;
-                        return done(null, user);
-                    });
-                }
-                //  We're not logged in, so we're creating a brand new user.
-                else {
-                    // create the user
-                    var newUser            = new User();
+                     if (existingFacebookUser) {
+                     let user            = existingFacebookUser;
+                     user.local.email    = email;
+                     user.local.password = user.generateHash(password);
+                     user.save(function(err) {
+                         if (err) throw err;
+                         return done(null, user, req.flash('authMessage', 'Now you can login using email and password too!'));
+                     });
+                   } else {
+                       // No facebook user or user found, create the user
+                       let newUser            = new User();
 
-                    newUser.local.email    = email;
-                    newUser.local.password = newUser.generateHash(password);
+                       newUser.local.email    = email;
+                       newUser.local.password = newUser.generateHash(password);
 
-                    newUser.save(function(err) {
-                        if (err) throw err;
-                        return done(null, newUser, req.flash('authMessage', 'WELCOME to CHEQ!'));
-                    });
-                }
-
+                       newUser.save(function(err) {
+                           if (err) throw err;
+                           return done(null, newUser, req.flash('authMessage', 'WELCOME to CHEQ!'));
+                       });
+                   }})}
             });
         });
-
     }));
 
 //---------------- Local Login -------------------//
@@ -90,25 +91,44 @@ passport.use('local-login', new LocalStrategy({
             function(err, user) {
                 // if there are any errors, return the error
                 if (err) {
-                  return done(err);
+                  return next(err);
                 }
                   // if no user is found, return the message
                 if (!user) {
+                  //  If we have facebook email, we will link up local
 
-                  return done(null, false, req.flash('loginMessage', 'No user found.'));
+                    User.findOne({
+                     'facebook.email': email
+                   },
+                   function(err, existingFacebookUser) {
+                      if (err) return next(err);
 
-                }
+                     if (existingFacebookUser) {
+                        let user            = existingFacebookUser;
+                        user.local.email    = email;
+                        user.local.password = user.generateHash(password);
+                        user.save(function(err) {
+                            if (err) throw err;
 
-                if (!user.validPassword(password)) {
-                  return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+                            return done(null, user, req.flash('authMessage', 'Now you can login using email and password too!'));
+                        });
+
+                     } else {
+                       return done(null, false, req.flash('loginMessage', 'No user found.'));
+                     }
+                   })
+                 }
+
+                if (user) {
+                 if (user.validPassword(password)) {
+                   // all is well, return user
+                   return done(null, user);
+                 } else {
+                   return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+                 }
               }
-
-                // all is well, return user
-                return done(null, user);
-
             });
         });
-
     }));
 
 //---------------- Facebook Login -------------------//
@@ -133,9 +153,12 @@ passport.use(new FacebookStrategy({
         if (!req.user) {
 
         // find the user in the database based on their facebook id
-        User.findOne({
-          'facebook.id': profile.id
-        }, function(err, user) {
+        User.findOne({ $or: [{'facebook.id': profile.id}, {'local.email': profile.emails[0].value} ]
+      },
+        // User.findOne({
+        //   'facebook.id': profile.id
+        // },
+        function(err, user) {
 
           // if there is an error, stop everything and return that
           // ie an error connecting to the database
@@ -166,7 +189,7 @@ passport.use(new FacebookStrategy({
 
             } else {
             // if there is no user found with that facebook id, create them
-            var newUser = new User();
+            let newUser = new User();
 
             // set all of the facebook information
             newUser.facebook.id = profile.id; // set the users facebook id
@@ -194,7 +217,7 @@ passport.use(new FacebookStrategy({
     } else {
 
 // user already exists and is logged in, we have to link accounts
-    var user = req.user; // pull user from session
+    let user = req.user; // pull user from session
 
      // update the current users facebook credentials
      user.facebook.id = profile.id;
