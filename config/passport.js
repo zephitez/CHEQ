@@ -44,21 +44,9 @@ module.exports = function(passport) {
                     return done(err);
 
                 // check to see if there's already a user with that email
-                if (existingUser)
+                if (existingUser) {
                     return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-
-                //  If we're logged in, we're connecting a new local account.
-                if(req.user) {
-                    var user            = req.user;
-                    user.local.email    = email;
-                    user.local.password = user.generateHash(password);
-                    user.save(function(err) {
-                        if (err) throw err;
-                        return done(null, user);
-                    });
-                }
-                //  We're not logged in, so we're creating a brand new user.
-                else {
+                  }
                     // create the user
                     var newUser            = new User();
 
@@ -69,7 +57,7 @@ module.exports = function(passport) {
                         if (err) throw err;
                         return done(null, newUser, req.flash('authMessage', 'WELCOME to CHEQ!'));
                     });
-                }
+
 
             });
         });
@@ -99,12 +87,9 @@ passport.use('local-login', new LocalStrategy({
 
                 }
 
-                user.validPassword(password)
-              //   if (!user.validPassword(password)) {
-              //     console.log('password wrong')
-              //     return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-              //
-              // }
+                if (!user.validPassword(password)) {
+                  return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+              }
 
                 // all is well, return user
                 return done(null, user);

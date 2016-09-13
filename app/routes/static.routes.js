@@ -1,18 +1,12 @@
 module.exports = function(app) {
+  var staticController = require('../controllers/staticController');
 
-  //HOME PAGE (with login links)
-  app.get('/', function(req, res) {
-    res.render('pages/static/index', {
-      title: 'Home',
-      user: req.user
-    }); //load the index.ejs file
-  });
+  //Home Page
+  app.route('/')
+    .get(staticController.index);
 
-  // About Page
-  app.get('/about', function(req, res) {
-    res.render('pages/static/about', {
-      title: 'About'
-    }); //load the about.ejs file
-  });
+  //About Page
+  app.route('/about')
+    .get(staticController.about);
 
 };
