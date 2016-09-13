@@ -22,6 +22,11 @@
           <span>Login</span>
         </a>
       <% } else { %>
+        <br>
+        <p><%= user.facebook.name %></p>
+        <br>
+        <img src=<%= user.facebook.photo %> />
+
         <a class="button" href="/dashboard">
           <span>Dashboard</span>
         </a>

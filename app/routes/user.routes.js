@@ -10,8 +10,8 @@ module.exports = function(app, passport) {
     .get(isLoggedIn, userController.reactDashboard);
 
   //-------- Transaction --------//
-  // app.route('/dashboard')
-  //   .post(isLoggedIn, userController.createTransaction);
+  app.route('/dashboard')
+    .post(isLoggedIn, userController.createTransaction);
 
   //-------- Sign Up --------//
   app.route('/signup')
@@ -63,64 +63,6 @@ module.exports = function(app, passport) {
   //-------- Unlinking Facebook --------//
   app.route('/unlink/facebook')
   .get(isLoggedIn, userController.unlink);
-
-//-------------------------- to be refactored ----------------------------------//
-
-//   app.post('/dashboard', isLoggedIn, function(req, res) {
-//
-//     var firstUser = req.user
-//
-//     User.findOne({
-//         'facebook.name': req.body.friend
-//       }, function(err, secondUser) {
-//
-//
-//         if (err) return done(err);
-//
-//         if (secondUser) {
-//
-//           var primaryTransaction = new Transaction();
-//           var secondaryTransaction = new Transaction();
-//
-//           primaryTransaction.first_user = firstUser._id;
-//           primaryTransaction.second_user = secondUser._id;
-//
-//           primaryTransaction.amount = req.body.amount;
-//
-//           primaryTransaction.item = req.body.item;
-//
-//
-//           primaryTransaction.save(function(err, transaction){
-//             if (err) throw err;
-//
-//             firstUser.transactions.push(transaction._id);
-//             firstUser.save(function(err) {
-//               if (err) throw err;
-//             });
-//             console.log(firstUser);
-//           });
-//
-//           secondaryTransaction.first_user = secondUser._id;
-//           secondaryTransaction.second_user = firstUser._id;
-//
-//           secondaryTransaction.amount = -req.body.amount;
-//           secondaryTransaction.item = req.body.item;
-//
-//           secondaryTransaction.save(function(err, transaction){
-//             if (err) throw err;
-//
-//             secondUser.transactions.push(transaction._id);
-//             secondUser.save(function(err) {
-//               if (err) throw err;
-//             });
-//             console.log(secondUser);
-//           });
-//         }
-//       });
-//
-
-//   });
-//
 
   //------- Log out users -----------------//
   app.get('/logout', function(req, res) {
