@@ -1,14 +1,18 @@
-<div class="container">
+<div class="container has-text-centered">
 
-<div class="col-sm-6 col-sm-offset-3">
+  <div class="columns is-mobile">
+    <div class="column is-half is-offset-one-quarter">
+      <h2 class="title">Sign Up</h2>
+      <h3 class="subtitle">Cheq your balance with us!</h3>
 
-    <h2>Sign Up</h2>
+      <!-- show any messages that come back with authentication -->
+      <% if (message.length > 0) { %>
+          <div class="alert alert-danger"><%= message %></div>
+      <% } %>
 
-    <!-- show any messages that come back with authentication -->
-    <% if (message.length > 0) { %>
-        <div class="alert alert-danger"><%= message %></div>
-    <% } %>
+      <!-- SIGN FORM -->
 
+<<<<<<< HEAD:app/views/pages/user/signup.ejs
     <!-- SIGN FORM -->
     <form action="/signup" method="post">
 
@@ -25,22 +29,45 @@
         <div class="form-group">
             <label>Password</label>
             <input type="password" class="form-control" name="password">
+=======
+      <form action="/signup" method="post">
+        <div class="control has-icon">
+            <input type="text" class="input is-medium" name="email" placeholder="Enter your email">
+            <i class="fa fa-envelope"></i>
         </div>
 
-        <button type="submit" class="btn btn-warning btn-lg">Sign Up</button>
-    </form>
+        <div class="control has-icon">
+            <input type="password" class="input is-medium" name="password" placeholder="Enter your password">
+            <i class="fa fa-lock"></i>
+>>>>>>> a517734b7d3555eab924306a1112f9d684886c7a:app/views/pages/signup.ejs
+        </div>
+
+        <button type="submit" class="button is-medium is-primary">
+          Sign Up
+        </button>
+
+
+        <section class="section">
+          <p>Already have an account?
+            <a href="/login">
+            Login here
+            </a>
+          </p>
+          <a href="/auth/facebook" class="btn btn-primary">
+            <span class="fa fa-facebook"></span>
+            &nbsp; | &nbsp; Login with Facebook
+          </a>
+        </section>
+
+      </form>
 
 
 
-    <p>Already have an account?
-      <a href="/login" class="plink">Login here</a></p>
-      <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> &nbsp; | &nbsp; Login with Facebook</a>
+    </div>
 
+  </div>
 
-
-    <hr>
-    <p><a href="/" class="back">>> Back to home</a></p>
-
-</div>
+  <hr>
+  <p><a href="/" class="back">>> Back to home</a></p>
 
 </div>

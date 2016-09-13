@@ -30,6 +30,7 @@ module.exports = function(app, passport) {
           primaryTransaction.first_user = firstUser._id;
           primaryTransaction.second_user = secondUser._id;
 
+
           primaryTransaction.amount = req.body.amount;
 
           primaryTransaction.item = req.body.item;
@@ -76,6 +77,9 @@ module.exports = function(app, passport) {
   });
 
 
+  //signup
+
+
   //show signup forms
   app.get('/signup', function(req, res) {
     //render the page and pass in any flash stuff
@@ -92,12 +96,30 @@ module.exports = function(app, passport) {
     failureFlash: true
   }));
 
-
   //show login form
   app.get('/login', function(req, res) {
     res.render('pages/user/login', {
       title: 'Login',
       message: req.flash('loginMessage'),
+
+  //DASHBOARD SECTION- show upon log in
+
+  app.get('/dashboard', //isLoggedIn,
+  function(req, res) {
+    res.render('pages/dashboard', {
+      title: 'Dashboard',
+      message: req.flash('authMessage'),
+      user: req.user //get the user out of  session and pass to template
+    });
+  });
+
+  app.get('/dashboard/*', //isLoggedIn,
+  function(req, res) {
+    res.render('pages/dashboard', {
+      title: 'Username',
+      message: req.flash('authMessage'),
+      user: req.user //get the user out of  session and pass to template
+
     });
   });
 

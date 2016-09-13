@@ -1,16 +1,18 @@
-<div class="container">
+<div class="container has-text-centered">
 
-    <div class="col-sm-6 col-sm-offset-3">
+  <div class="columns is-mobile">
+    <div class="column is-half is-offset-one-quarter">
+      <h2 class="title">Log In</h2>
+      <h3 class="subtitle">Welcome back!</h3>
 
-        <h2>Login</h2>
+      <!-- show any messages that come back with authentication -->
+      <% if (message.length > 0) { %>
+          <div class="alert alert-danger"><%= message %></div>
+      <% } %>
 
-        <!-- show any messages that come back with authentication -->
-        <% if (message.length > 0) { %>
-            <div class="alert alert-danger">
-                <%= message %>
-            </div>
-            <% } %>
+      <!-- SIGN FORM -->
 
+<<<<<<< HEAD:app/views/pages/user/login.ejs
                 <!-- LOGIN FORM -->
                 <form action="/login" method="post">
 
@@ -22,11 +24,39 @@
                         <label>Password</label>
                         <input type="password" class="form-control" name="password">
                     </div>
+=======
+      <form action="/signup" method="post">
+        <div class="control has-icon">
+            <input type="text" class="input is-medium" name="email" placeholder="Enter your email">
+            <i class="fa fa-envelope"></i>
+        </div>
+>>>>>>> a517734b7d3555eab924306a1112f9d684886c7a:app/views/pages/login.ejs
 
-                    <button type="submit" class="btn btn-warning btn-lg">Login</button>
+        <div class="control has-icon">
+            <input type="password" class="input is-medium" name="password" placeholder="Enter your password">
+            <i class="fa fa-lock"></i>
+        </div>
 
-                </form>
+        <button type="submit" class="button is-medium is-primary">
+          Log In
+        </button>
 
+
+        <section class="section">
+          <p>New to Cheq?
+            <a href="/signup">
+            Sign up here
+            </a>
+          </p>
+          <a href="/auth/facebook">
+            <i class="fa fa-facebook"></i>
+            &nbsp; | &nbsp; Login with Facebook
+          </a>
+        </section>
+
+      </form>
+
+<<<<<<< HEAD:app/views/pages/user/login.ejs
               
 
 
@@ -34,10 +64,15 @@
                    <a href="/signup" class="plink">Sign up here</a>
                 </p>
               <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> &nbsp; | &nbsp; Login with Facebook</a>
+=======
+>>>>>>> a517734b7d3555eab924306a1112f9d684886c7a:app/views/pages/login.ejs
 
-                <hr>
-                <p><a href="/" class="back">>> Back to home</a></p>
 
     </div>
+
+  </div>
+
+  <hr>
+  <p><a href="/" class="back">>> Back to home</a></p>
 
 </div>
