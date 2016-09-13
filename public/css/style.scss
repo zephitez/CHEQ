@@ -1,0 +1,22 @@
+$to-collect: #1abc9c;
+$to-pay: #e74c3c;
+
+body {
+  height: 100vh
+}
+
+.column .box {
+  height: 30vh;
+}
+
+.tocollect {
+  border: 1px solid $to-collect;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.topay {
+  border: 1px solid $to-pay;
+  border-radius: 10px;
+  margin: 10px;
+}

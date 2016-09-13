@@ -4,12 +4,21 @@ var        User = require('../models/user'),
 module.exports = {
 
   dashboard: function(req, res) {
-      res.render('pages/user/user', {
+      res.render('pages/user/dashboard', {
         title: 'Profile',
         message: req.flash('authMessage'),
         user: req.user //get the user out of  session and pass to template
       });
     },
+
+  reactDashboard: function(req, res) {
+       res.render('pages/user/dashboard', {
+         title: 'Username',
+         message: req.flash('authMessage'),
+         user: req.user //get the user out of  session and pass to template
+       });
+     },
+
 
   signup: function(req, res) {
       //render the page and pass in any flash stuff

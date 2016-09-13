@@ -6,6 +6,9 @@ module.exports = function(app, passport) {
   app.route('/dashboard')
     .get(isLoggedIn, userController.dashboard);
 
+  app.route('/dashboard/*')
+    .get(isLoggedIn, userController.reactDashboard);
+
   //-------- Transaction --------//
   // app.route('/dashboard')
   //   .post(isLoggedIn, userController.createTransaction);
@@ -58,6 +61,7 @@ module.exports = function(app, passport) {
           successRedirect : '/dashboard',
           failureRedirect : '/'
   }));
+
 
   //-------- Unlinking Facebook --------//
   app.route('/unlink/facebook')

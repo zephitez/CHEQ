@@ -1,3 +1,17 @@
+body {
+  height: 100vh; }
 
+.column .box {
+  height: 30vh; }
+
+.tocollect {
+  border: 1px solid #1abc9c;
+  border-radius: 10px;
+  margin: 10px; }
+
+.topay {
+  border: 1px solid #e74c3c;
+  border-radius: 10px;
+  margin: 10px; }
 
 /*# sourceMappingURL=style.css.map */
