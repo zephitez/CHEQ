@@ -4,6 +4,6 @@ export default class Transaction extends BaseModel {
   constructor(data){
     super()
     this.baseRoute = 'transaction'
-    this.data = data
+    this.data = JSON.stringify(data)
   }
 }

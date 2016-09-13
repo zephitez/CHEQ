@@ -27492,9 +27492,11 @@
 
 	      var transaction = new _Transaction2.default(data);
 	      // transaction.getAll().then(data => console.log(data))
-	      // transaction.create()
-	      //   .then(data => console.log(data))
-	      //   .catch(error => console.log(error))
+	      transaction.create(data).then(function (data) {
+	        console.log(data);
+	      }).catch(function (error) {
+	        return console.log(error);
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -27648,19 +27650,23 @@
 
 	    this.baseUrl = 'http://localhost:3000';
 	    this.baseRoute = '';
+	    this.headers = new Headers({
+	      userId: window.localStorage.getItem('userId'),
+	      "Content-Type": "application/json"
+	    });
 	  }
 
 	  _createClass(BaseModel, [{
 	    key: 'getAll',
 	    value: function getAll() {
-	      return fetch(this.baseUrl + '/' + this.baseRoute, { method: 'GET' }).then(function (result) {
+	      return fetch(this.baseUrl + '/' + this.baseRoute, { method: 'GET', headers: this.headers }).then(function (result) {
 	        return result.json();
 	      });
 	    }
 	  }, {
 	    key: 'create',
 	    value: function create() {
-	      return fetch(this.baseUrl + '/' + this.baseRoute + '/new', { method: 'POST', body: this.data }).then(function (result) {
+	      return fetch(this.baseUrl + '/' + this.baseRoute + '/new', { method: 'POST', body: this.data, headers: this.headers }).then(function (result) {
 	        return result.json();
 	      });
 	    }
@@ -27705,7 +27711,7 @@
 	    var _this = _possibleConstructorReturn(this, (Transaction.__proto__ || Object.getPrototypeOf(Transaction)).call(this));
 
 	    _this.baseRoute = 'transaction';
-	    _this.data = data;
+	    _this.data = JSON.stringify(data);
 	    return _this;
 	  }
 

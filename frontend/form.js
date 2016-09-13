@@ -21,9 +21,12 @@ export default class Form extends React.Component{
 
     const transaction = new Transaction(data)
     // transaction.getAll().then(data => console.log(data))
-    // transaction.create()
-    //   .then(data => console.log(data))
-    //   .catch(error => console.log(error))
+    transaction.create(data)
+      .then(data => {
+        console.log(data)
+        
+      })
+      .catch(error => console.log(error))
 
   }
 

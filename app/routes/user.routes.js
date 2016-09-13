@@ -4,6 +4,7 @@ module.exports = function(app, passport) {
 
   //-------- Dashboard --------//
   // app.use(isLoggedIn)
+  // app.use('/', userController.getUser)
   app.route('/dashboard')
     .get(userController.dashboard);
 
@@ -12,10 +13,10 @@ module.exports = function(app, passport) {
 
   //-------- Transaction --------//
   app.route('/transaction')
-    .get(userController.getTransaction);
+    .get(userController.getUser, userController.getTransaction);
 
   app.route('/transaction/new')
-    .post(userController.createTransaction);
+    .post(userController.getUser, userController.createTransaction);
 
   //-------- Sign Up --------//
   app.route('/signup')
