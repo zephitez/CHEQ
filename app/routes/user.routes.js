@@ -13,7 +13,6 @@ module.exports = function(app, passport) {
   // app.route('/dashboard')
   //   .post(isLoggedIn, userController.createTransaction);
 
-
   //-------- Sign Up --------//
   app.route('/signup')
   .get(userController.signup);
@@ -36,7 +35,6 @@ module.exports = function(app, passport) {
     failureFlash: true // allow flash messages
   }));
 
-
   //-------- Facebook --------//
   app.route('/auth/facebook')
   .get(passport.authenticate('facebook', {
@@ -48,7 +46,6 @@ module.exports = function(app, passport) {
             successRedirect : '/dashboard',
             failureRedirect : '/'
   }));
-
 
   //-------- Linking Facebook to Local --------//
   app.route('/connect/facebook')
@@ -124,12 +121,7 @@ module.exports = function(app, passport) {
 
 //   });
 //
-//
 
-
-
-//
-//
   //------- Log out users -----------------//
   app.get('/logout', function(req, res) {
     req.logout();
