@@ -33,6 +33,20 @@ module.exports = function(app, passport) {
     failureFlash: true // allow flash messages
   }));
 
+
+  //-------- Facebook --------//
+  app.route('/auth/facebook')
+  .get(passport.authenticate('facebook', {
+    scope: ['user_friends', 'email', 'public_profile']
+  }));
+
+  app.route('/auth/facebook/callback')
+  .get(passport.authenticate('facebook', {
+            successRedirect : '/dashboard',
+            failureRedirect : '/'
+  }));
+
+
   //-------- Linking Facebook to Local --------//
   app.route('/connect/facebook')
   .get(passport.authorize('facebook', {
