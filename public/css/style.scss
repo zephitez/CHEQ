@@ -1,18 +1,22 @@
 $to-collect: #1abc9c;
 $to-pay: #e74c3c;
 
-.columns {
+body {
+  height: 100vh
+}
 
-  .tocollect {
-    border: 2px solid $to-collect;
-    border-radius: 10px;
-    margin: 10px;
-  }
+.column .box {
+  height: 30vh;
+}
 
-  .topay {
-    border: 2px solid $to-pay;
-    border-radius: 10px;
-    margin: 10px;
-  }
+.tocollect {
+  border: 1px solid $to-collect;
+  border-radius: 10px;
+  margin: 10px;
+}
 
+.topay {
+  border: 1px solid $to-pay;
+  border-radius: 10px;
+  margin: 10px;
 }
