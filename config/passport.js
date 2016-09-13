@@ -46,38 +46,35 @@ module.exports = function(passport) {
                 // check to see if there's already a user with that email
                 if (existingUser)
                     return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-                    
-                    //  If we're logged in, we're connecting a new local account.
-                  if(req.user) {
-                      var user            = req.user;
-                      user.local.email    = email;
-                      user.local.password = user.generateHash(password);
-                      user.save(function(err) {
-                          if (err)
-                              throw err;
-                          return done(null, user);
-                      });
-                  }
-                  //  We're not logged in, so we're creating a brand new user.
-                  else {
-                      // create the user
-                      var newUser            = new User();
 
-                      newUser.local.email    = email;
-                      newUser.local.password = newUser.generateHash(password);
+                //  If we're logged in, we're connecting a new local account.
+                if(req.user) {
+                    var user            = req.user;
+                    user.local.email    = email;
+                    user.local.password = user.generateHash(password);
+                    user.save(function(err) {
+                        if (err) throw err;
+                        return done(null, user);
+                    });
+                }
+                //  We're not logged in, so we're creating a brand new user.
+                else {
+                    // create the user
+                    var newUser            = new User();
 
-                      newUser.save(function(err) {
-                          if (err)
-                              throw err;
+                    newUser.local.email    = email;
+                    newUser.local.password = newUser.generateHash(password);
 
-                          return done(null, newUser);
-                      });
-                  }
+                    newUser.save(function(err) {
+                        if (err) throw err;
+                        return done(null, newUser, req.flash('authMessage', 'WELCOME to CHEQ!'));
+                    });
+                }
 
-              });
-          });
+            });
+        });
 
-      }));
+    }));
 
 //---------------- Local Login -------------------//
 passport.use('local-login', new LocalStrategy({
