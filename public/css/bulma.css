@@ -232,7 +232,7 @@ body {
 }
 
 a {
-  color: #1fc8db;
+  color: #4CB8C4;
   cursor: pointer;
   text-decoration: none;
   -webkit-transition: none 86ms ease-out;
@@ -240,7 +240,7 @@ a {
 }
 
 a:hover {
-  color: #222324;
+  color: #F7B2B7;
 }
 
 code {
@@ -990,15 +990,22 @@ a.box:active {
 }
 
 .button.is-primary {
-  background-color: #1fc8db;
+  background-color: #3CD3AD;
   border-color: transparent;
   color: white;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .button.is-primary:hover, .button.is-primary:focus, .button.is-primary.is-active {
-  background-color: #199fae;
+  background-color: white;
   border-color: transparent;
-  color: white;
+  color: #3CD3AD;
+  border: 1px solid #3CD3AD;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .button.is-primary:active {
@@ -1113,15 +1120,22 @@ a.box:active {
 }
 
 .button.is-warning {
-  background-color: #fce473;
+  background-color: #3E5C76;
   border-color: transparent;
-  color: rgba(17, 17, 17, 0.5);
+  color: #fff;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .button.is-warning:hover, .button.is-warning:focus, .button.is-warning.is-active {
-  background-color: #fbda41;
+  background-color: white;
   border-color: transparent;
-  color: rgba(17, 17, 17, 0.5);
+  color: #3E5C76;
+  border: 1px solid #3E5C76;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .button.is-warning:active {
@@ -1478,7 +1492,7 @@ a.box:active {
 }
 
 .input.is-medium, .is-medium.textarea {
-  font-size: 18px;
+  font-size: 1em;
   height: 40px;
   line-height: 32px;
   padding-left: 10px;

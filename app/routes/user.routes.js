@@ -101,7 +101,15 @@ module.exports = function(app, passport) {
     res.render('pages/user/login', {
       title: 'Login',
       message: req.flash('loginMessage'),
+    });
+  });
 
+  // process the login form
+  app.post('/login', passport.authenticate('local-login', {
+    successRedirect: '/dashboard', // redirect to the secure profile section
+    failureRedirect: '/login', // redirect back to the signup page if there is an error
+    failureFlash: true // allow flash messages
+  }));
   //DASHBOARD SECTION- show upon log in
 
   app.get('/dashboard', //isLoggedIn,
@@ -122,13 +130,6 @@ module.exports = function(app, passport) {
 
     });
   });
-
-  // process the login form
-  app.post('/login', passport.authenticate('local-login', {
-    successRedirect: '/dashboard', // redirect to the secure profile section
-    failureRedirect: '/login', // redirect back to the signup page if there is an error
-    failureFlash: true // allow flash messages
-  }));
 
 //---------- Facebook Routing ---------------------//
 
