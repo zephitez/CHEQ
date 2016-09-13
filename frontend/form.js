@@ -8,14 +8,6 @@ export default class Form extends React.Component{
       text: 'hi'
     }
   }
-  onClick(event) {
-    event.preventDefault()
-    const user = new User('test')
-    user.getAll().then(data => {
-      this.setState({text: data.a})
-    })
-
-  }
 
   render(){
     return(
@@ -59,7 +51,7 @@ export default class Form extends React.Component{
             </p>
 
           </form>
-          
+
           </div>
         </div>
       </div>

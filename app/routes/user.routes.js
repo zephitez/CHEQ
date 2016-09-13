@@ -9,8 +9,6 @@ module.exports = function(app, passport) {
     }); //load the index.ejs file
   });
 
-
-
   // About Page
   app.get('/about', function(req, res) {
     res.render('pages/about', {
