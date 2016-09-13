@@ -1,15 +1,15 @@
 export default class BaseModel {
-  constructor(route) {
-    this.baseRoute = route
+  constructor() {
+    this.baseUrl = `http://localhost:3000`
+    this.baseRoute = ''
   }
   getAll() {
-    return fetch(`http://localhost:3000/${this.baseRoute}`, {method: 'GET'})
+    return fetch(`${this.baseUrl}/${this.baseRoute}`, {method: 'GET'})
       .then(result => result.json())
   }
-  create(body) {
-    fetch(`http://localhost:3000/${this.baseRoute}`, {method: 'POST', body: body})
+  create() {
+    return fetch(`${this.baseUrl}/${this.baseRoute}/new`, {method: 'POST', body: this.data})
       .then(result => result.json())
-      .then(data => console.log(data))
   }
   get(id) {
 

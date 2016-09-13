@@ -27453,6 +27453,10 @@
 
 	var _User2 = _interopRequireDefault(_User);
 
+	var _Transaction = __webpack_require__(241);
+
+	var _Transaction2 = _interopRequireDefault(_Transaction);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27476,6 +27480,23 @@
 	  }
 
 	  _createClass(Form, [{
+	    key: 'postTransaction',
+	    value: function postTransaction(event) {
+	      event.preventDefault();
+
+	      var friend = this._friend.value;
+	      var price = this._price.value;
+	      var description = this._description.value;
+
+	      var data = { friend: friend, price: price, description: description };
+
+	      var transaction = new _Transaction2.default(data);
+	      // transaction.getAll().then(data => console.log(data))
+	      // transaction.create()
+	      //   .then(data => console.log(data))
+	      //   .catch(error => console.log(error))
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -27491,7 +27512,7 @@
 	            { className: 'column is-8 is-offset-2' },
 	            _react2.default.createElement(
 	              'form',
-	              { action: '', method: 'post', onSubmit: this._handleSubmit.bind(this) },
+	              { onSubmit: this.postTransaction.bind(this) },
 	              _react2.default.createElement(
 	                'h1',
 	                { className: 'title' },
@@ -27514,12 +27535,12 @@
 	                        null,
 	                        _react2.default.createElement(
 	                          'option',
-	                          null,
+	                          { id: 'pay-to' },
 	                          'Pay To'
 	                        ),
 	                        _react2.default.createElement(
 	                          'option',
-	                          null,
+	                          { id: 'collect-from' },
 	                          'Collect From'
 	                        )
 	                      )
@@ -27563,17 +27584,6 @@
 	          )
 	        )
 	      );
-	    }
-	  }, {
-	    key: '_handleSubmit',
-	    value: function _handleSubmit(event) {
-	      event.preventDefault();
-
-	      var friend = this._friend;
-	      var price = this._price;
-	      var description = this._description;
-
-	      this.props.addTransaction(friend.value, price.value, description.value);
 	    }
 	  }]);
 
@@ -27633,26 +27643,25 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var BaseModel = function () {
-	  function BaseModel(route) {
+	  function BaseModel() {
 	    _classCallCheck(this, BaseModel);
 
-	    this.baseRoute = route;
+	    this.baseUrl = 'http://localhost:3000';
+	    this.baseRoute = '';
 	  }
 
 	  _createClass(BaseModel, [{
 	    key: 'getAll',
 	    value: function getAll() {
-	      return fetch('http://localhost:3000/' + this.baseRoute, { method: 'GET' }).then(function (result) {
+	      return fetch(this.baseUrl + '/' + this.baseRoute, { method: 'GET' }).then(function (result) {
 	        return result.json();
 	      });
 	    }
 	  }, {
 	    key: 'create',
-	    value: function create(body) {
-	      fetch('http://localhost:3000/' + this.baseRoute, { method: 'POST', body: body }).then(function (result) {
+	    value: function create() {
+	      return fetch(this.baseUrl + '/' + this.baseRoute + '/new', { method: 'POST', body: this.data }).then(function (result) {
 	        return result.json();
-	      }).then(function (data) {
-	        return console.log(data);
 	      });
 	    }
 	  }, {
@@ -27664,6 +27673,46 @@
 	}();
 
 	exports.default = BaseModel;
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _BaseModel2 = __webpack_require__(240);
+
+	var _BaseModel3 = _interopRequireDefault(_BaseModel2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Transaction = function (_BaseModel) {
+	  _inherits(Transaction, _BaseModel);
+
+	  function Transaction(data) {
+	    _classCallCheck(this, Transaction);
+
+	    var _this = _possibleConstructorReturn(this, (Transaction.__proto__ || Object.getPrototypeOf(Transaction)).call(this));
+
+	    _this.baseRoute = 'transaction';
+	    _this.data = data;
+	    return _this;
+	  }
+
+	  return Transaction;
+	}(_BaseModel3.default);
+
+	exports.default = Transaction;
 
 /***/ }
 /******/ ]);
