@@ -44,9 +44,6 @@ module.exports = {
            let primaryTransaction = {};
            let secondaryTransaction = {};
 
-
-
-
               primaryTransaction.first_user = firstUser._id;
               primaryTransaction.second_user = secondUser._id;
               primaryTransaction.amount = req.body.amount;
@@ -67,10 +64,25 @@ module.exports = {
               if(err) {
                 return done(err);
               } else {
-                return res.json(docs);
+                //TO BE REFACTORED  to make it run PARALLEL
+
+                firstUser.transactions.push(docs.insertedIds[0]);
+                firstUser.save(function(err) {
+                      if (err) throw err;
+                    });
+                    //json is returned together with second user
+
+                secondUser.transactions.push(docs.insertedIds[1]);
+                    secondUser.save(function(err) {
+                      if (err) throw err;
+                      return res.json([firstUser, secondUser]);
+                    });
               }
 
             })
+          }
+      });
+    },
 
 //------------------- OLD CODE --------------//
           //   let primaryTransaction = new Transaction();
@@ -107,9 +119,7 @@ module.exports = {
           //     });
           //    return res.json([firstUser, secondUser]);
           //   });
-          }
-      });
-    },
+
 
 
   signup: function(req, res) {
