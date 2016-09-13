@@ -16,7 +16,9 @@ var transactionSchema = mongoose.Schema({
     second_user: { type: Schema.Types.ObjectId, ref: 'User'},
     amount: Number,
     item: String
-
+  },
+    {
+      timestamps: true
 
 });
 

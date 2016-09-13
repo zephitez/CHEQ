@@ -10,7 +10,10 @@ module.exports = function(app, passport) {
     .get(isLoggedIn, userController.reactDashboard);
 
   //-------- Transaction --------//
-  app.route('/dashboard')
+  app.route('/transaction')
+    .get(isLoggedIn, userController.getTransaction);
+
+  app.route('/transaction/new')
     .post(isLoggedIn, userController.createTransaction);
 
   //-------- Sign Up --------//

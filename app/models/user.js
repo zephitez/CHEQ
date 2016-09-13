@@ -19,6 +19,10 @@ var userSchema = Schema({
       friends  : [{ type: String }]
     },
     transactions : [{ type: Schema.Types.ObjectId, ref: 'Transaction'}]
+  },
+    {
+      timestamps: true
+
   });
 
 

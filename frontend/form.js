@@ -7,6 +7,7 @@ export default class Form extends React.Component{
     this.state = {
       text: 'hi'
     }
+    handleSubmit = this._handleSubmit.bind(this);
   }
 
   render(){
@@ -15,7 +16,7 @@ export default class Form extends React.Component{
         <div className="box column is-10 is-offset-1">
           <div className="column is-8 is-offset-2">
 
-          <form action="" method="post" onSubmit={this._handleSubmit.bind(this)}>
+          <form action="/dashboard" method="post" onSubmit={handleSubmit}>
 
             <h1 className="title">Record a Transaction</h1>
             <div className="control is-horizontal">
@@ -23,8 +24,8 @@ export default class Form extends React.Component{
                 <p className="control has-addons is-expanded">
                   <span className="select is-medium">
                     <select>
-                      <option>Pay To</option>
-                      <option>Collect From</option>
+                    <option id="pay-to">Pay To</option>
+                    <option id="collect-from">Collect From</option>
                     </select>
                   </span>
                 <p className="control has-icon">

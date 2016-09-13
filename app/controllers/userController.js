@@ -19,8 +19,20 @@ module.exports = {
        });
      },
 
+  //getting all transaction for req.user
+  getTransaction: function(req, res) {
+      let user = req.user;
+
+      Transaction.find({
+        '_id': {$in : user.transactions}
+      }, function(err, result){
+        if (err) return done(err);
+        return res.json(result);
+      })
+  },
+
   createTransaction: function(req, res) {
-      var firstUser = req.user;
+      let firstUser = req.user;
 
       User.findOne({
           'facebook.name': req.body.friend
@@ -28,40 +40,73 @@ module.exports = {
 
           if (err) return done(err);
           if (secondUser) {
-            var primaryTransaction = new Transaction();
-            var secondaryTransaction = new Transaction();
 
-            //---------- Fields for primary transaction ----------//
-            primaryTransaction.first_user = firstUser._id;
-            primaryTransaction.second_user = secondUser._id;
-            primaryTransaction.amount = req.body.amount;
-            primaryTransaction.item = req.body.item;
+           let primaryTransaction = {};
+           let secondaryTransaction = {};
 
-            primaryTransaction.save(function(err, transaction){
-              if (err) throw err;
 
-            firstUser.transactions.push(transaction._id);
-            firstUser.save(function(err) {
-                if (err) throw err;
-              });
-              //json is returned together with second user
-            });
 
-            //---------- Fields for secondary transaction ----------//
-            secondaryTransaction.first_user = secondUser._id;
-            secondaryTransaction.second_user = firstUser._id;
-            secondaryTransaction.amount = -req.body.amount;
-            secondaryTransaction.item = req.body.item;
 
-            secondaryTransaction.save(function(err, transaction){
-              if (err) throw err;
+              primaryTransaction.first_user = firstUser._id;
+              primaryTransaction.second_user = secondUser._id;
+              primaryTransaction.amount = req.body.amount;
+              primaryTransaction.item = req.body.item;
+              primaryTransaction.updatedAt = new Date();
+              primaryTransaction.createdAt = new Date();
 
-              secondUser.transactions.push(transaction._id);
-              secondUser.save(function(err) {
-                if (err) throw err;
-              });
-             return res.json([firstUser, secondUser]);
-            });
+              secondaryTransaction.first_user = secondUser._id;
+              secondaryTransaction.second_user = firstUser._id;
+              secondaryTransaction.amount = -req.body.amount;
+              secondaryTransaction.item = req.body.item;
+              secondaryTransaction.updatedAt = new Date();
+              secondaryTransaction.createdAt = new Date();
+
+            let groupTransaction = [primaryTransaction, secondaryTransaction];
+
+            Transaction.collection.insert(groupTransaction, function(err, docs){
+              if(err) {
+                return done(err);
+              } else {
+                return res.json(docs);
+              }
+
+            })
+
+//------------------- OLD CODE --------------//
+          //   let primaryTransaction = new Transaction();
+          //   let secondaryTransaction = new Transaction();
+          //
+          //   //---------- Fields for primary transaction ----------//
+          //   primaryTransaction.first_user = firstUser._id;
+          //   primaryTransaction.second_user = secondUser._id;
+          //   primaryTransaction.amount = req.body.amount;
+          //   primaryTransaction.item = req.body.item;
+          //
+          //   primaryTransaction.save(function(err, transaction){
+          //     if (err) throw err;
+          //
+          //   firstUser.transactions.push(transaction._id);
+          //   firstUser.save(function(err) {
+          //       if (err) throw err;
+          //     });
+          //     //json is returned together with second user
+          //   });
+          //
+          //   //---------- Fields for secondary transaction ----------//
+          //   secondaryTransaction.first_user = secondUser._id;
+          //   secondaryTransaction.second_user = firstUser._id;
+          //   secondaryTransaction.amount = -req.body.amount;
+          //   secondaryTransaction.item = req.body.item;
+          //
+          //   secondaryTransaction.save(function(err, transaction){
+          //     if (err) throw err;
+          //
+          //     secondUser.transactions.push(transaction._id);
+          //     secondUser.save(function(err) {
+          //       if (err) throw err;
+          //     });
+          //    return res.json([firstUser, secondUser]);
+          //   });
           }
       });
     },
@@ -83,7 +128,7 @@ module.exports = {
     },
 
   unlink: function(req, res) {
-        var user            = req.user;
+        user                = req.user;
         user.facebook.token = undefined;
         user.save(function(err) {
             res.redirect('/dashboard');
