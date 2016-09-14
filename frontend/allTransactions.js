@@ -25,17 +25,6 @@ export default class AllTransactions extends React.Component {
       .catch(error => console.log(error))
   }
 
-// _checkTransactions(){
-//   if
-// }
-
-  //if amount negative we show
-      // <td>to pay </td>
-      // <td>{-transaction.amount}</td>
-  //else
-      //<td>to collect </td>
-      // <td>{transaction.amount}</td>
-
 _displayTransactions(){
 let trans = this.state.transactions.map( (transaction) => {
 
