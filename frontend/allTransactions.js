@@ -5,52 +5,55 @@ import Transaction from './models/Transaction';
 export default class AllTransactions extends React.Component {
   constructor(){
     super();
-    this.getTransaction = this._getTransaction.bind(this);
-    this.displayTransactions = this._displayTransactions.bind(this);
+    this.getTransaction = this._getTransaction
+    this.displayTransactions = this._displayTransactions
+    this.sumTransactions = this._sumTransactions
+    this._checkSum()
     this.state = {
       transactions: [],
-      status: 'to collect'
+      status: 'to collect',
+      total: 'To Collect',
+      sum: []
     }
   }
 
   _getTransaction(){
     const transaction = new Transaction()
-    transaction.getAll()
-      .then((data)=> {
-        this.setState({
-          transactions: data
-        })
-
+    transaction.getAll().then(data => {
+      this.setState({
+        transactions: data
       })
-      .catch(error => console.log(error))
+    })
+    .catch(error => console.log(error))
+  }
+
+  _checkSum() {
+    if (this.sumTransactions < 0) {
+      this.sumTransactions = -this.sumTransactions;
+      this.setState({
+        total: "To pay"
+      })
+    }
   }
 
 _displayTransactions(){
-let trans = this.state.transactions.map( (transaction) => {
-
-    if (transaction.amount < 0) {
-      transaction.amount = -transaction.amount;
-      this.setState({
-        status: "to pay"
-      })
-    }
-
+let trans = this.state.transactions.map((transaction) => {
   return(
     <tr>
       <td>{transaction.createdAt}</td>
       <td>{transaction.second_user}</td>
       <td>{transaction.item}</td>
-      <td>{this.state.status}</td>
-
+      <td>{transaction.amount < 0 ? 'to pay': 'to collect'}</td>
       <td>{transaction.amount}</td>
-
     </tr>
   )
-
-
-
 })
 return trans;
+}
+
+_sumTransactions() {
+  return this.state.transactions
+  .reduce((previousValue, currentValue) => previousValue + currentValue.amount, 0)
 }
 
 
@@ -73,9 +76,19 @@ return trans;
               <th>Amount</th>
             </tr>
           </thead>
+          <tfoot>
+            <tr>
+              <td>Total</td>
+              <td>-</td>
+              <td>-</td>
+              <td>{this.state.total}</td>
+              <td>{this.sumTransactions()}</td>
+            </tr>
+          </tfoot>
           <tbody>
 
             {this.displayTransactions()}
+
           </tbody>
         </table>
       </div>
