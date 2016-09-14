@@ -3,9 +3,24 @@ import User from './models/User';
 import Transaction from './models/Transaction';
 
 export default class AllTransactions extends React.Component {
+  constructor(){
+    super();
+    this._getTransaction = this._getTransaction.bind(this);
+  }
+
+  _getTransaction(){
+    const transaction = new Transaction()
+    transaction.getAll()
+      .then((data)=> {
+        console.log(data)
+      })
+      .catch(error => console.log(error))
+  }
+
+  componentWillMount(){
+    this._getTransaction();
+  }
   render(){
-    console.log(Transaction.getAll);
-    console.log(Transaction.data);
     return(
       <div>
         <h3 className="title">All Activities</h3>

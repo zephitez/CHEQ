@@ -27240,14 +27240,30 @@
 	  function AllTransactions() {
 	    _classCallCheck(this, AllTransactions);
 
-	    return _possibleConstructorReturn(this, (AllTransactions.__proto__ || Object.getPrototypeOf(AllTransactions)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (AllTransactions.__proto__ || Object.getPrototypeOf(AllTransactions)).call(this));
+
+	    _this._getTransaction = _this._getTransaction.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(AllTransactions, [{
+	    key: '_getTransaction',
+	    value: function _getTransaction() {
+	      var transaction = new _Transaction2.default();
+	      transaction.getAll().then(function (data) {
+	        console.log(data);
+	      }).catch(function (error) {
+	        return console.log(error);
+	      });
+	    }
+	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this._getTransaction();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log(_Transaction2.default.getAll);
-	      console.log(_Transaction2.default.data);
 	      return _react2.default.createElement(
 	        'div',
 	        null,
