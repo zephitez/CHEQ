@@ -6,7 +6,37 @@
         <%= message %>
     </div>
   <% } %>
+
   <input id="hidden" type="hidden" name="userId" value="<%= user.id %>">
+
+  <div class="tabs is-centered">
+  <ul>
+
+    <li>
+      <a href="/dashboard">
+        Summary
+      </a>
+    </li>
+
+    <li>
+      <a href="/dashboard/all">
+        See All
+      </a>
+    </li>
+    <li>
+      <a href="/dashboard/form">
+
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>&nbspCHEQ
+      </a>
+    </li>
+    <!-- <li>
+      <a href="#">
+        Add Friend
+      </a>
+    </li> -->
+  </ul>
+</div>
+
   <div id="app">
   <!-- render react things -->
   </div>
