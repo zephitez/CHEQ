@@ -41,7 +41,3 @@ ReactDOM.render((
     <Router path="dashboard/form" component={Form}/>
   </Router>
 ), document.getElementById('app'))
-
-// ReactDOM.render(
-//   <Dashboard />, document.getElementById('app')
-// )

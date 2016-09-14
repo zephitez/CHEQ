@@ -33,11 +33,18 @@ module.exports = {
   getTransaction: function(req, res) {
       let user = req.user;
 
-      Transaction.find({
-        '_id': {$in : user.transactions}
-      }, function(err, result){
-        if (err) return done(err);
-        return res.json(result);
+      Transaction.find({ '_id': {$in : user.transactions} } )
+      .populate('second_user')
+      .exec(function (err, result) {
+        let outputValue = result.map( (transaction) => {
+          let transactionToFrontend = {};
+             transactionToFrontend.second_user_name = transaction.second_user.facebook.name;
+             transactionToFrontend.amount = transaction.amount;
+             transactionToFrontend.item = transaction.item;
+             transactionToFrontend.date = transaction.createdAt;
+          return transactionToFrontend;
+        })
+        return res.json(outputValue);
       })
   },
 

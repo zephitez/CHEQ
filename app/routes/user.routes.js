@@ -3,20 +3,18 @@ var userController = require('../controllers/userController');
 module.exports = function(app, passport) {
 
   //-------- Dashboard --------//
-  // app.use(isLoggedIn)
-  // app.use('/', userController.getUser)
   app.route('/dashboard')
-    .get(userController.dashboard);
+    .get(isLoggedIn, userController.dashboard);
 
   app.route('/dashboard/*')
-    .get(userController.reactDashboard);
+    .get(isLoggedIn, userController.reactDashboard);
 
   //-------- Transaction --------//
   app.route('/transaction')
-    .get(userController.getUser, userController.getTransaction);
+    .get(isLoggedIn, userController.getUser, userController.getTransaction);
 
   app.route('/transaction/new')
-    .post(userController.getUser, userController.createTransaction);
+    .post(isLoggedIn, userController.getUser, userController.createTransaction);
 
   //-------- Sign Up --------//
   app.route('/signup')

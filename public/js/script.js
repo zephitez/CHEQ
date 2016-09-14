@@ -171,10 +171,6 @@
 	  _react2.default.createElement(_reactRouter.Router, { path: 'dashboard/form', component: _form2.default })
 	), document.getElementById('app'));
 
-	// ReactDOM.render(
-	//   <Dashboard />, document.getElementById('app')
-	// )
-
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
@@ -24159,8 +24155,6 @@
 
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 
-	var _Actions = __webpack_require__(184);
-
 	var _computeChangedRoutes2 = __webpack_require__(202);
 
 	var _computeChangedRoutes3 = _interopRequireDefault(_computeChangedRoutes2);
@@ -24207,10 +24201,6 @@
 	    }
 
 	    return (0, _isActive3.default)(location, indexOnly, state.location, state.routes, state.params);
-	  }
-
-	  function createLocationFromRedirectInfo(location) {
-	    return history.createLocation(location, _Actions.REPLACE);
 	  }
 
 	  var partialNextState = void 0;
@@ -24270,7 +24260,7 @@
 	    }
 
 	    function handleErrorOrRedirect(error, redirectInfo) {
-	      if (error) callback(error);else callback(null, createLocationFromRedirectInfo(redirectInfo));
+	      if (error) callback(error);else callback(null, redirectInfo);
 	    }
 	  }
 
@@ -26421,6 +26411,8 @@
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+	var _Actions = __webpack_require__(184);
+
 	var _invariant = __webpack_require__(180);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
@@ -26479,7 +26471,7 @@
 	  history = (0, _RouterUtils.createRoutingHistory)(history, transitionManager);
 
 	  transitionManager.match(location, function (error, redirectLocation, nextState) {
-	    callback(error, redirectLocation, nextState && _extends({}, nextState, {
+	    callback(error, redirectLocation && router.createLocation(redirectLocation, _Actions.REPLACE), nextState && _extends({}, nextState, {
 	      history: history,
 	      router: router,
 	      matchContext: { history: history, transitionManager: transitionManager, router: router }
@@ -27258,6 +27250,7 @@
 
 	      var transaction = new _Transaction2.default();
 	      transaction.getAll().then(function (data) {
+	        console.log(data);
 	        _this2.setState({
 	          transactions: data
 	        });
@@ -27265,25 +27258,12 @@
 	        return console.log(error);
 	      });
 	    }
-
-	    // _checkTransactions(){
-	    //   if
-	    // }
-
-	    //if amount negative we show
-	    // <td>to pay </td>
-	    // <td>{-transaction.amount}</td>
-	    //else
-	    //<td>to collect </td>
-	    // <td>{transaction.amount}</td>
-
 	  }, {
 	    key: '_displayTransactions',
 	    value: function _displayTransactions() {
 	      var _this3 = this;
 
 	      var trans = this.state.transactions.map(function (transaction) {
-
 	        if (transaction.amount < 0) {
 	          transaction.amount = -transaction.amount;
 	          _this3.setState({
@@ -27302,7 +27282,7 @@
 	          _react2.default.createElement(
 	            'td',
 	            null,
-	            transaction.second_user
+	            transaction.second_user_name
 	          ),
 	          _react2.default.createElement(
 	            'td',
