@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link, browserHistory } from 'react-router';
-import All from './all';
+import All from './allTransactions';
 import Friend from './friend';
 import Transaction from './transaction';
 import Form from './form';

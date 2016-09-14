@@ -14,17 +14,17 @@ export default class Form extends React.Component{
     event.preventDefault()
 
     const friend = this._friend.value;
-    const price = this._price.value;
-    const description = this._description.value;
+    const amount = this._price.value;
+    const item = this._description.value;
 
-    const data = { friend, price, description }
+    const data = { friend, amount, item }
 
     const transaction = new Transaction(data)
     // transaction.getAll().then(data => console.log(data))
     transaction.create(data)
       .then(data => {
         console.log(data)
-        
+
       })
       .catch(error => console.log(error))
 
