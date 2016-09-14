@@ -27729,15 +27729,15 @@
 	                          'Collect From'
 	                        )
 	                      )
-	                    ),
-	                    _react2.default.createElement(
-	                      'p',
-	                      { className: 'control has-icon' },
-	                      _react2.default.createElement('input', { className: 'input is-medium', placeholder: 'Friend', ref: function ref(input) {
-	                          return _this2._friend = input;
-	                        } }),
-	                      _react2.default.createElement('i', { className: 'fa fa-at' })
 	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'p',
+	                    { className: 'control has-icon' },
+	                    _react2.default.createElement('input', { className: 'input is-medium', placeholder: 'Friend', ref: function ref(input) {
+	                        return _this2._friend = input;
+	                      } }),
+	                    _react2.default.createElement('i', { className: 'fa fa-at' })
 	                  ),
 	                  _react2.default.createElement(
 	                    'p',
