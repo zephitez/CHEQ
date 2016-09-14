@@ -48,10 +48,10 @@ export default class Form extends React.Component{
                     <option id="collect-from">Collect From</option>
                     </select>
                   </span>
+                </p>
                 <p className="control has-icon">
                   <input className="input is-medium" placeholder="Friend" ref={(input) => this._friend = input}/>
                   <i className="fa fa-at"></i>
-                </p>
                 </p>
 
                 <p className="control has-icon is-expanded">

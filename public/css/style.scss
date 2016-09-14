@@ -1,14 +1,25 @@
 $to-collect: #1abc9c;
 $to-pay:     #e74c3c;
 
-$signup:     #3CD3AD;
+$signup:     #1abc9c;
 $login:      #3E5C76;
 $link:       #4CB8C4;
 $hover-link: #F7B2B7;
+$tab:        #F9C554;
+
+
+// ELEMENTS
 
 body {
   height: 100vh
 }
+
+nav div span img {
+    border-radius: 10px;
+}
+
+// CLASSES
+
 
 .column .box {
   height: 30vh;
@@ -38,6 +49,41 @@ body {
   position: relative;
   perspective: 1000px;
 }
+
+.tabs li.is-active a {
+    border-bottom-color: $tab;
+    color: $tab;
+}
+
+.button.is-facebook {
+  background-color: #3B5998;
+  border-color: transparent;
+  color: #fff;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+.button.is-facebook:hover, .button.is-facebook:focus, .button.is-facebook.is-active {
+  background-color: white;
+  border-color: transparent;
+  color: #3B5998;
+  border: 1px solid #3B5998;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.button.is-facebook:active {
+  border-color: transparent;
+}
+
+.mini-space {
+  margin-top: 10px;
+}
+
+
+// IDS
 
 #navigation {
   width: 100%;
