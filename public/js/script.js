@@ -27242,28 +27242,69 @@
 
 	    var _this = _possibleConstructorReturn(this, (AllTransactions.__proto__ || Object.getPrototypeOf(AllTransactions)).call(this));
 
-	    _this._getTransaction = _this._getTransaction.bind(_this);
+	    _this.getTransaction = _this._getTransaction.bind(_this);
+	    _this.displayTransactions = _this._displayTransactions.bind(_this);
+	    _this.state = {
+	      transactions: []
+	    };
 	    return _this;
 	  }
 
 	  _createClass(AllTransactions, [{
 	    key: '_getTransaction',
 	    value: function _getTransaction() {
+	      var _this2 = this;
+
 	      var transaction = new _Transaction2.default();
 	      transaction.getAll().then(function (data) {
-	        console.log(data);
+	        _this2.setState({
+	          transactions: data
+	        });
 	      }).catch(function (error) {
 	        return console.log(error);
 	      });
 	    }
 	  }, {
+	    key: '_displayTransactions',
+	    value: function _displayTransactions() {
+	      var trans = this.state.transactions.map(function (transaction) {
+
+	        return _react2.default.createElement(
+	          'tr',
+	          null,
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            transaction.createdAt
+	          ),
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            transaction.second_user
+	          ),
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            transaction.item
+	          ),
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            transaction.amount
+	          )
+	        );
+	      });
+	      return trans;
+	    }
+	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this._getTransaction();
+	      this.getTransaction();
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -27306,30 +27347,7 @@
 	          _react2.default.createElement(
 	            'tbody',
 	            null,
-	            _react2.default.createElement(
-	              'tr',
-	              null,
-	              _react2.default.createElement(
-	                'td',
-	                null,
-	                'test'
-	              ),
-	              _react2.default.createElement(
-	                'td',
-	                null,
-	                'test'
-	              ),
-	              _react2.default.createElement(
-	                'td',
-	                null,
-	                'test'
-	              ),
-	              _react2.default.createElement(
-	                'td',
-	                null,
-	                'test'
-	              )
-	            )
+	            this.displayTransactions()
 	          )
 	        )
 	      );
