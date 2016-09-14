@@ -27253,17 +27253,16 @@
 	      var _this2 = this;
 
 	      var transaction = new _Transaction2.default();
+
 	      transaction.getAll().then(function (data) {
-	        console.log(data);
 	        _this2.setState({
 	          transactions: data
+
 	        });
 	      }).catch(function (error) {
 	        return console.log(error);
 	      });
 	    }
-<<<<<<< HEAD
-=======
 	  }, {
 	    key: '_checkSum',
 	    value: function _checkSum() {
@@ -27274,7 +27273,6 @@
 	        });
 	      }
 	    }
->>>>>>> 328cc18884aae2ac3eb0d06e61b2fcb0345e7cf7
 	  }, {
 	    key: '_displayTransactions',
 	    value: function _displayTransactions() {
