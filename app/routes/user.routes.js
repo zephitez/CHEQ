@@ -11,10 +11,10 @@ module.exports = function(app, passport) {
 
   //-------- Transaction --------//
   app.route('/transaction')
-    .get(isLoggedIn, userController.getUser, userController.getTransaction);
+    .get(userController.getUser, userController.getTransaction);
 
   app.route('/transaction/new')
-    .post(isLoggedIn, userController.getUser, userController.createTransaction);
+    .post(userController.getUser, userController.createTransaction);
 
   //-------- Sign Up --------//
   app.route('/signup')
