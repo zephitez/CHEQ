@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, Link, browserHistory } from 'react-router';
-import All from './all';
+import AllTransactions from './allTransactions';
 import Friend from './friend';
 import Transaction from './transaction';
 import Form from './form';
@@ -36,7 +36,7 @@ export default Dashboard
 ReactDOM.render((
   <Router history={browserHistory}>
     <Router path="dashboard" component={Dashboard}/>
-    <Router path="dashboard/all" component={All}/>
+    <Router path="dashboard/all" component={AllTransactions}/>
     <Router path="dashboard/friend" component={Friend}/>
     <Router path="dashboard/form" component={Form}/>
   </Router>

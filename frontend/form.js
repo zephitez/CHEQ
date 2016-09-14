@@ -1,5 +1,6 @@
 import React from 'react';
 import User from './models/User'
+import Transaction from './models/Transaction'
 
 export default class Form extends React.Component{
   constructor() {
@@ -7,7 +8,26 @@ export default class Form extends React.Component{
     this.state = {
       text: 'hi'
     }
-    handleSubmit = this._handleSubmit.bind(this);
+  }
+
+  postTransaction(event){
+    event.preventDefault()
+
+    const friend = this._friend.value;
+    const amount = this._price.value;
+    const item = this._description.value;
+
+    const data = { friend, amount, item }
+
+    const transaction = new Transaction(data)
+    // transaction.getAll().then(data => console.log(data))
+    transaction.create(data)
+      .then(data => {
+        console.log(data)
+
+      })
+      .catch(error => console.log(error))
+
   }
 
   render(){
@@ -16,7 +36,7 @@ export default class Form extends React.Component{
         <div className="box column is-10 is-offset-1">
           <div className="column is-8 is-offset-2">
 
-          <form action="/dashboard" method="post" onSubmit={handleSubmit}>
+          <form onSubmit={this.postTransaction.bind(this)}>
 
             <h1 className="title">Record a Transaction</h1>
             <div className="control is-horizontal">
@@ -59,16 +79,6 @@ export default class Form extends React.Component{
 
 
     )
-  }
-
-  _handleSubmit(event){
-    event.preventDefault();
-
-    let friend = this._friend;
-    let price = this._price;
-    let description = this._description;
-
-    this.props.addTransaction(friend.value, price.value, description.value);
   }
 
 }

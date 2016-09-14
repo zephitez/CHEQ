@@ -3,18 +3,20 @@ var userController = require('../controllers/userController');
 module.exports = function(app, passport) {
 
   //-------- Dashboard --------//
+  // app.use(isLoggedIn)
+  // app.use('/', userController.getUser)
   app.route('/dashboard')
-    .get(isLoggedIn, userController.dashboard);
+    .get(userController.dashboard);
 
   app.route('/dashboard/*')
-    .get(isLoggedIn, userController.reactDashboard);
+    .get(userController.reactDashboard);
 
   //-------- Transaction --------//
   app.route('/transaction')
-    .get(isLoggedIn, userController.getTransaction);
+    .get(userController.getUser, userController.getTransaction);
 
   app.route('/transaction/new')
-    .post(isLoggedIn, userController.createTransaction);
+    .post(userController.getUser, userController.createTransaction);
 
   //-------- Sign Up --------//
   app.route('/signup')
@@ -78,6 +80,7 @@ module.exports = function(app, passport) {
 
 //-------- Check if its logged in -------//
 function isLoggedIn(req, res, next) {
+  console.log('logging')
   if (req.isAuthenticated())
     return next();
   //if not auth then redirect to homepage

@@ -3,6 +3,16 @@ var        User = require('../models/user'),
 
 module.exports = {
 
+  getUser: function(req, res, next) {
+    const userId = req.get('userId')
+    if(userId) {
+      User.findById(userId, (err, user) => {
+        req.user = user
+        next()
+      })
+    }
+  },
+
   dashboard: function(req, res) {
       res.render('pages/user/dashboard', {
         title: 'Profile',
@@ -33,7 +43,6 @@ module.exports = {
 
   createTransaction: function(req, res) {
       let firstUser = req.user;
-
       User.findOne({
           'facebook.name': req.body.friend
         }, function(err, secondUser) {
