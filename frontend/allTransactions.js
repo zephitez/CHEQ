@@ -8,7 +8,8 @@ export default class AllTransactions extends React.Component {
     this.getTransaction = this._getTransaction.bind(this);
     this.displayTransactions = this._displayTransactions.bind(this);
     this.state = {
-      transactions: []
+      transactions: [],
+      status: 'to collect'
     }
   }
 
@@ -24,17 +25,36 @@ export default class AllTransactions extends React.Component {
       .catch(error => console.log(error))
   }
 
+// _checkTransactions(){
+//   if
+// }
 
+  //if amount negative we show
+      // <td>to pay </td>
+      // <td>{-transaction.amount}</td>
+  //else
+      //<td>to collect </td>
+      // <td>{transaction.amount}</td>
 
 _displayTransactions(){
 let trans = this.state.transactions.map( (transaction) => {
+
+    if (transaction.amount < 0) {
+      transaction.amount = -transaction.amount;
+      this.setState({
+        status: "to pay"
+      })
+    }
 
   return(
     <tr>
       <td>{transaction.createdAt}</td>
       <td>{transaction.second_user}</td>
       <td>{transaction.item}</td>
+      <td>{this.state.status}</td>
+
       <td>{transaction.amount}</td>
+
     </tr>
   )
 
@@ -60,6 +80,7 @@ return trans;
               <th>Date</th>
               <th>Friend</th>
               <th>Item</th>
+              <th>Action</th>
               <th>Amount</th>
             </tr>
           </thead>

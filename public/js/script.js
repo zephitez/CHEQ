@@ -27245,7 +27245,8 @@
 	    _this.getTransaction = _this._getTransaction.bind(_this);
 	    _this.displayTransactions = _this._displayTransactions.bind(_this);
 	    _this.state = {
-	      transactions: []
+	      transactions: [],
+	      status: 'to collect'
 	    };
 	    return _this;
 	  }
@@ -27264,10 +27265,31 @@
 	        return console.log(error);
 	      });
 	    }
+
+	    // _checkTransactions(){
+	    //   if
+	    // }
+
+	    //if amount negative we show
+	    // <td>to pay </td>
+	    // <td>{-transaction.amount}</td>
+	    //else
+	    //<td>to collect </td>
+	    // <td>{transaction.amount}</td>
+
 	  }, {
 	    key: '_displayTransactions',
 	    value: function _displayTransactions() {
+	      var _this3 = this;
+
 	      var trans = this.state.transactions.map(function (transaction) {
+
+	        if (transaction.amount < 0) {
+	          transaction.amount = -transaction.amount;
+	          _this3.setState({
+	            status: "to pay"
+	          });
+	        }
 
 	        return _react2.default.createElement(
 	          'tr',
@@ -27286,6 +27308,11 @@
 	            'td',
 	            null,
 	            transaction.item
+	          ),
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            _this3.state.status
 	          ),
 	          _react2.default.createElement(
 	            'td',
@@ -27336,6 +27363,11 @@
 	                'th',
 	                null,
 	                'Item'
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                null,
+	                'Action'
 	              ),
 	              _react2.default.createElement(
 	                'th',
