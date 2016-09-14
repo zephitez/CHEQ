@@ -27264,6 +27264,7 @@
 	      var _this3 = this;
 
 	      var trans = this.state.transactions.map(function (transaction) {
+
 	        if (transaction.amount < 0) {
 	          transaction.amount = -transaction.amount;
 	          _this3.setState({

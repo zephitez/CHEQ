@@ -17,7 +17,7 @@ export default class AllTransactions extends React.Component {
     const transaction = new Transaction()
     transaction.getAll()
       .then((data)=> {
-        console.log(data);
+        console.log(data)
         this.setState({
           transactions: data
         })
@@ -28,6 +28,7 @@ export default class AllTransactions extends React.Component {
 
 _displayTransactions(){
 let trans = this.state.transactions.map( (transaction) => {
+
     if (transaction.amount < 0) {
       transaction.amount = -transaction.amount;
       this.setState({
@@ -41,10 +42,13 @@ let trans = this.state.transactions.map( (transaction) => {
       <td>{transaction.second_user_name}</td>
       <td>{transaction.item}</td>
       <td>{this.state.status}</td>
+
       <td>{transaction.amount}</td>
 
     </tr>
   )
+
+
 
 })
 return trans;
@@ -72,8 +76,7 @@ return trans;
           </thead>
           <tbody>
 
-             {this.displayTransactions()}
-
+            {this.displayTransactions()}
           </tbody>
         </table>
       </div>
