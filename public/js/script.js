@@ -27237,8 +27237,11 @@
 	    _this.state = {
 	      transactions: []
 	    };
-	    _this.toPay = "Pay To";
-	    _this.toCollect = "Collect From";
+	    _this.payTo = "Pay To";
+	    _this.collectFrom = "Collect From";
+
+	    _this.toPay = "to pay";
+	    _this.toCollect = "to collect";
 	    return _this;
 	  }
 
@@ -27287,7 +27290,7 @@
 	          _react2.default.createElement(
 	            'td',
 	            null,
-	            transaction.amount < 0 ? _this3.toPay : _this3.toCollect
+	            transaction.amount < 0 ? _this3.payTo : _this3.collectFrom
 	          ),
 	          _react2.default.createElement(
 	            'td',
@@ -27344,7 +27347,7 @@
 	          _react2.default.createElement(
 	            'strong',
 	            null,
-	            sum < 0 ? 'To Pay' : 'To Collect'
+	            sum < 0 ? this.toPay : this.toCollect
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -27355,6 +27358,38 @@
 	            null,
 	            sum < 0 ? NegSumValue : sumValue
 	          )
+	        )
+	      );
+	    }
+	  }, {
+	    key: '_summary',
+	    value: function _summary() {
+	      var sum = this.state.transactions.reduce(function (previousValue, currentValue) {
+	        return previousValue + currentValue.amount;
+	      }, 0);
+
+	      var sumValue = sum.toLocaleString(undefined, {
+	        minimumFractionDigits: 2,
+	        maximumFractionDigits: 2 });
+	      var NegSumValue = (sum * -1).toLocaleString(undefined, {
+	        minimumFractionDigits: 2,
+	        maximumFractionDigits: 2 });
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'box has-text-centered' },
+	        _react2.default.createElement(
+	          'h2',
+	          { className: 'subtitle' },
+	          'You have ',
+	          _react2.default.createElement(
+	            'strong',
+	            null,
+	            sum < 0 ? this.toPay : this.toCollect,
+	            ' $',
+	            sum < 0 ? NegSumValue : sumValue
+	          ),
+	          ' in total.'
 	        )
 	      );
 	    }
@@ -27370,11 +27405,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
-	          'h3',
-	          { className: 'title' },
-	          'All Activities'
-	        ),
+	        this._summary(),
 	        _react2.default.createElement(
 	          'table',
 	          { className: 'table is-striped' },

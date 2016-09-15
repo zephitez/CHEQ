@@ -8,8 +8,11 @@ export default class AllTransactions extends React.Component {
     this.state = {
       transactions: []
     }
-    this.toPay = "Pay To";
-    this.toCollect = "Collect From";
+    this.payTo = "Pay To";
+    this.collectFrom = "Collect From";
+
+    this.toPay = "to pay";
+    this.toCollect = "to collect";
   }
 
   _getTransaction(){
@@ -38,7 +41,7 @@ _displayTransactions(){
     <tr>
       <td>{transaction.date}</td>
       <td>{transaction.item}</td>
-      <td>{transaction.amount < 0 ? this.toPay : this.toCollect }</td>
+      <td>{transaction.amount < 0 ? this.payTo : this.collectFrom }</td>
       <td>{transaction.second_user_name}</td>
       <td className="has-text-right">{transaction.amount < 0 ?  NegativeTransAmount : transAmount }</td>
     </tr>
@@ -62,11 +65,30 @@ _sumTransactions() {
     <td><strong>Total</strong></td>
     <td>-</td>
     <td>-</td>
-    <td><strong>{sum < 0 ? 'To Pay' : 'To Collect' }</strong></td>
+    <td><strong>{sum < 0 ? this.toPay : this.toCollect }</strong></td>
     <td className="has-text-right"><strong>{sum < 0 ? NegSumValue : sumValue }</strong></td>
     </tr>
   )
 }
+
+_summary(){
+  let sum = this.state.transactions
+  .reduce((previousValue, currentValue) => previousValue + currentValue.amount, 0)
+
+  let sumValue = sum.toLocaleString(undefined, {
+                 minimumFractionDigits: 2,
+                 maximumFractionDigits: 2});
+  let NegSumValue = (sum * (-1)).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2});
+
+  return (
+    <div className="box has-text-centered">
+      <h2 className="subtitle">You have <strong>{sum < 0 ? this.toPay : this.toCollect } ${sum < 0 ? NegSumValue : sumValue }</strong> in total.</h2>
+    </div>
+  )
+}
+
 
   componentWillMount(){
     this._getTransaction();
@@ -75,7 +97,7 @@ _sumTransactions() {
 
     return(
       <div>
-        <h3 className="title">All Activities</h3>
+        {this._summary()}
         <table className="table is-striped">
           <thead>
             <tr>
