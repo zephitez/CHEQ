@@ -27237,8 +27237,8 @@
 	    _this.state = {
 	      transactions: []
 	    };
-	    _this.toPay = "To Pay";
-	    _this.toCollect = "To Collect";
+	    _this.toPay = "Pay To";
+	    _this.toCollect = "Collect From";
 	    return _this;
 	  }
 
@@ -27263,6 +27263,14 @@
 	      var _this3 = this;
 
 	      var trans = this.state.transactions.map(function (transaction) {
+
+	        var transAmount = transaction.amount.toLocaleString(undefined, {
+	          minimumFractionDigits: 2,
+	          maximumFractionDigits: 2 });
+	        var NegativeTransAmount = (transaction.amount * -1).toLocaleString(undefined, {
+	          minimumFractionDigits: 2,
+	          maximumFractionDigits: 2 });
+
 	        return _react2.default.createElement(
 	          'tr',
 	          null,
@@ -27270,11 +27278,6 @@
 	            'td',
 	            null,
 	            transaction.date
-	          ),
-	          _react2.default.createElement(
-	            'td',
-	            null,
-	            transaction.second_user_name
 	          ),
 	          _react2.default.createElement(
 	            'td',
@@ -27289,7 +27292,12 @@
 	          _react2.default.createElement(
 	            'td',
 	            null,
-	            transaction.amount < 0 ? -transaction.amount : transaction.amount
+	            transaction.second_user_name
+	          ),
+	          _react2.default.createElement(
+	            'td',
+	            { className: 'has-text-right' },
+	            transaction.amount < 0 ? NegativeTransAmount : transAmount
 	          )
 	        );
 	      });
@@ -27302,13 +27310,23 @@
 	        return previousValue + currentValue.amount;
 	      }, 0);
 
+	      var sumValue = sum.toLocaleString(undefined, {
+	        minimumFractionDigits: 2,
+	        maximumFractionDigits: 2 });
+	      var NegSumValue = (sum * -1).toLocaleString(undefined, {
+	        minimumFractionDigits: 2,
+	        maximumFractionDigits: 2 });
 	      return _react2.default.createElement(
 	        'tr',
 	        null,
 	        _react2.default.createElement(
 	          'td',
 	          null,
-	          'Total'
+	          _react2.default.createElement(
+	            'strong',
+	            null,
+	            'Total'
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'td',
@@ -27323,12 +27341,20 @@
 	        _react2.default.createElement(
 	          'td',
 	          null,
-	          sum < 0 ? this.toPay : this.toCollect
+	          _react2.default.createElement(
+	            'strong',
+	            null,
+	            sum < 0 ? 'To Pay' : 'To Collect'
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'td',
-	          null,
-	          sum < 0 ? -sum : sum
+	          { className: 'has-text-right' },
+	          _react2.default.createElement(
+	            'strong',
+	            null,
+	            sum < 0 ? NegSumValue : sumValue
+	          )
 	        )
 	      );
 	    }
@@ -27351,7 +27377,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'table',
-	          { className: 'table' },
+	          { className: 'table is-striped' },
 	          _react2.default.createElement(
 	            'thead',
 	            null,
@@ -27366,11 +27392,6 @@
 	              _react2.default.createElement(
 	                'th',
 	                null,
-	                'Friend'
-	              ),
-	              _react2.default.createElement(
-	                'th',
-	                null,
 	                'Item'
 	              ),
 	              _react2.default.createElement(
@@ -27381,7 +27402,12 @@
 	              _react2.default.createElement(
 	                'th',
 	                null,
-	                'Amount'
+	                'Friend'
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                { className: 'has-text-right' },
+	                'Amount ($)'
 	              )
 	            )
 	          ),
