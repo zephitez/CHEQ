@@ -54,7 +54,7 @@ module.exports = function(passport) {
                       if (err) throw err;
 
                      if (existingFacebookUser) {
-                     let user            = existingFacebookUser;
+                     var user            = existingFacebookUser;
                      user.local.email    = email;
                      user.local.password = user.generateHash(password);
                      user.save(function(err) {
