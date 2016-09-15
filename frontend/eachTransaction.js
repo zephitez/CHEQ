@@ -62,13 +62,14 @@ export default class EachTransaction extends React.Component {
         result.push(
           <tr key={prop}>
             <td>{prop}</td>
-            <td>{(newObject[prop] * -1).toFixed(2)}</td>
+            <td className="has-text-right">{(newObject[prop] * -1).toFixed(2)}</td>
           </tr>
         )
       }else if(this.props.type =="collectFrom" && newObject[prop] > 0){
-        result.push(<tr key={prop}>
+        result.push(
+        <tr key={prop}>
           <td>{prop}</td>
-          <td>{(newObject[prop]).toFixed(2)}</td>
+          <td className="has-text-right">{(newObject[prop]).toFixed(2)}</td>
         </tr>
       )
       }
@@ -89,7 +90,7 @@ export default class EachTransaction extends React.Component {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Amount ( $ )</th>
+            <th className="has-text-right">Amount ( $ )</th>
           </tr>
         </thead>
         <tbody>
