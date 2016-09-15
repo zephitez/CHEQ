@@ -63,7 +63,7 @@ module.exports = function(passport) {
                      });
                    } else {
                        // No facebook user or user found, create the user
-                       let newUser            = new User();
+                       var newUser            = new User();
 
                        newUser.local.email    = email;
                        newUser.local.password = newUser.generateHash(password);
@@ -104,7 +104,7 @@ passport.use('local-login', new LocalStrategy({
                       if (err) return next(err);
 
                      if (existingFacebookUser) {
-                        let user            = existingFacebookUser;
+                        var user            = existingFacebookUser;
                         user.local.email    = email;
                         user.local.password = user.generateHash(password);
                         user.save(function(err) {
@@ -189,7 +189,7 @@ passport.use(new FacebookStrategy({
 
             } else {
             // if there is no user found with that facebook id, create them
-            let newUser = new User();
+            var newUser = new User();
 
             // set all of the facebook information
             newUser.facebook.id = profile.id; // set the users facebook id
@@ -217,7 +217,7 @@ passport.use(new FacebookStrategy({
     } else {
 
 // user already exists and is logged in, we have to link accounts
-    let user = req.user; // pull user from session
+    var user = req.user; // pull user from session
 
      // update the current users facebook credentials
      user.facebook.id = profile.id;
