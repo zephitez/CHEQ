@@ -16,13 +16,13 @@ class Dashboard extends React.Component {
           <div className="column">
             <div className="box topay">
               <p className="subtitle"> <strong>PAY TO</strong></p>
-              <EachTransaction />
+              <EachTransaction type="payTo"/>
             </div>
           </div>
           <div className="column">
             <div className="box tocollect">
               <p className="subtitle"> <strong>COLLECT FROM</strong></p>
-              {/* <EachTransaction /> */}
+              <EachTransaction type="collectFrom"/>
             </div>
           </div>
         </div>

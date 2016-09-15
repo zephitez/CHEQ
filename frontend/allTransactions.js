@@ -1,5 +1,4 @@
 import React from 'react';
-import User from './models/User';
 import Transaction from './models/Transaction';
 
 export default class AllTransactions extends React.Component {

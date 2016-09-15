@@ -129,7 +129,7 @@
 	                  'PAY TO'
 	                )
 	              ),
-	              _react2.default.createElement(_eachTransaction2.default, null)
+	              _react2.default.createElement(_eachTransaction2.default, { type: 'payTo' })
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -147,7 +147,8 @@
 	                  null,
 	                  'COLLECT FROM'
 	                )
-	              )
+	              ),
+	              _react2.default.createElement(_eachTransaction2.default, { type: 'collectFrom' })
 	            )
 	          )
 	        )
@@ -27209,10 +27210,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _User = __webpack_require__(236);
-
-	var _User2 = _interopRequireDefault(_User);
-
 	var _Transaction = __webpack_require__(238);
 
 	var _Transaction2 = _interopRequireDefault(_Transaction);
@@ -27599,10 +27596,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _User = __webpack_require__(236);
-
-	var _User2 = _interopRequireDefault(_User);
-
 	var _Transaction = __webpack_require__(238);
 
 	var _Transaction2 = _interopRequireDefault(_Transaction);
@@ -27648,63 +27641,67 @@
 	  }, {
 	    key: '_filterSumByUser',
 	    value: function _filterSumByUser() {
+	      /*
+	      1) Create a new object
+	       forEach
+	       do something to each item in an array
+	       things we want to do
+	       2) check if current object second user name is inside our new object
+	        if not inside - add it in as a new key and also add the amount as the value of that key
+	        if inside - we want to only add increment the amount of that object
+	       */
 
 	      // an array of objects containing transaction information
 	      var trans = this.state.transactions;
-
-	      // instantiate array to contain only names from the transaction objects
-	      var nameArr = [];
-
-	      // retrieve names from transaction objects
-	      trans.map(function (transaction) {
-	        nameArr = nameArr.concat(transaction.second_user_name);
+	      console.log('original', trans);
+	      // Step 1
+	      var newObject = {};
+	      // Step 2
+	      trans.forEach(function (obj) {
+	        // not inside
+	        if (newObject[obj.second_user_name] === undefined) {
+	          newObject[obj.second_user_name] = obj.amount;
+	        } else {
+	          newObject[obj.second_user_name] = newObject[obj.second_user_name] + obj.amount;
+	        }
 	      });
-
-	      // get another array (filtering unique names from nameArr)
-	      var uniqueArr = Array.from(new Set(nameArr));
-
-	      console.log("uniqueArr is ", uniqueArr);
-
-	      // instanstiate an object to hold <key> names and their <value> net amounts
-	      var netAmt = {};
-
-	      // for the number of unique names, loop through the object array
-	      for (var i = 0; i < uniqueArr.length; i++) {
-	        // important to instantiate the <key> and <value> here
-	        netAmt[uniqueArr[i]] = 0;
-	        // an inner loop to match names in uniqueArr and those per object; if there is a match, add the amount of that transaction to the unique name
-	        trans.map(function (transaction) {
-	          if (transaction.second_user_name == uniqueArr[i]) {
-	            console.log(netAmt[uniqueArr[i]]);
-
-	            netAmt[uniqueArr[i]] += transaction.amount;
-	          }
-	        });
+	      // Step 3
+	      var result = [];
+	      for (var prop in newObject) {
+	        if (this.props.type == "payTo" && newObject[prop] < 0) {
+	          result.push(_react2.default.createElement(
+	            'tr',
+	            { key: prop },
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              prop
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              (newObject[prop] * -1).toFixed(2)
+	            )
+	          ));
+	        } else if (this.props.type == "collectFrom" && newObject[prop] > 0) {
+	          result.push(_react2.default.createElement(
+	            'tr',
+	            { key: prop },
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              prop
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              newObject[prop].toFixed(2)
+	            )
+	          ));
+	        }
 	      }
-
-	      console.log(netAmt);
-
-	      return nameArr;
+	      return result;
 	    }
-
-	    //
-	    // _sumTransactions() {
-	    //   let sum = this.state.transactions
-	    //   .reduce((previousValue, currentValue) => previousValue + currentValue.amount, 0)
-	    //
-	    //   return (
-	    //     <tr>
-	    //     <td>Total</td>
-	    //     <td>-</td>
-	    //     <td>-</td>
-	    //     <td>{sum < 0 ? this.toPay : this.toCollect }</td>
-	    //     <td>{sum < 0 ? -sum : sum }</td>
-	    //     </tr>
-	    //   )
-	    // }
-	    //
-	    //
-
 	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
@@ -27713,30 +27710,32 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var result = this._filterSumByUser();
 	      return _react2.default.createElement(
-	        'div',
-	        null,
+	        'table',
+	        { className: 'table' },
 	        _react2.default.createElement(
-	          'p',
+	          'thead',
 	          null,
 	          _react2.default.createElement(
-	            'strong',
+	            'tr',
 	            null,
-	            'User 1 '
-	          ),
-	          'pay or collect',
-	          _react2.default.createElement(
-	            'strong',
-	            null,
-	            ' User 2 '
-	          ),
-	          'transaction ',
-	          _react2.default.createElement('br', null)
+	            _react2.default.createElement(
+	              'th',
+	              null,
+	              'Name'
+	            ),
+	            _react2.default.createElement(
+	              'th',
+	              null,
+	              'Amount ( $ )'
+	            )
+	          )
 	        ),
 	        _react2.default.createElement(
-	          'p',
+	          'tbody',
 	          null,
-	          this._filterSumByUser()
+	          result
 	        )
 	      );
 	    }
