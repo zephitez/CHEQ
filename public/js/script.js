@@ -70,9 +70,9 @@
 
 	var _friend2 = _interopRequireDefault(_friend);
 
-	var _transaction = __webpack_require__(240);
+	var _eachTransaction = __webpack_require__(240);
 
-	var _transaction2 = _interopRequireDefault(_transaction);
+	var _eachTransaction2 = _interopRequireDefault(_eachTransaction);
 
 	var _form = __webpack_require__(241);
 
@@ -126,10 +126,10 @@
 	                _react2.default.createElement(
 	                  'strong',
 	                  null,
-	                  'PAY'
+	                  'PAY TO'
 	                )
 	              ),
-	              _react2.default.createElement(_transaction2.default, null)
+	              _react2.default.createElement(_eachTransaction2.default, null)
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -145,10 +145,9 @@
 	                _react2.default.createElement(
 	                  'strong',
 	                  null,
-	                  'COLLECT'
+	                  'COLLECT FROM'
 	                )
-	              ),
-	              _react2.default.createElement(_transaction2.default, null)
+	              )
 	            )
 	          )
 	        )
@@ -27600,6 +27599,14 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _User = __webpack_require__(236);
+
+	var _User2 = _interopRequireDefault(_User);
+
+	var _Transaction = __webpack_require__(238);
+
+	var _Transaction2 = _interopRequireDefault(_Transaction);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27608,16 +27615,102 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Transaction = function (_React$Component) {
-	  _inherits(Transaction, _React$Component);
+	var EachTransaction = function (_React$Component) {
+	  _inherits(EachTransaction, _React$Component);
 
-	  function Transaction() {
-	    _classCallCheck(this, Transaction);
+	  function EachTransaction() {
+	    _classCallCheck(this, EachTransaction);
 
-	    return _possibleConstructorReturn(this, (Transaction.__proto__ || Object.getPrototypeOf(Transaction)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (EachTransaction.__proto__ || Object.getPrototypeOf(EachTransaction)).call(this));
+
+	    _this.state = {
+	      transactions: []
+	    };
+
+	    return _this;
 	  }
 
-	  _createClass(Transaction, [{
+	  _createClass(EachTransaction, [{
+	    key: '_getUserTransactions',
+	    value: function _getUserTransactions() {
+	      var _this2 = this;
+
+	      var transaction = new _Transaction2.default();
+
+	      transaction.getAll().then(function (data) {
+	        _this2.setState({
+	          transactions: data
+	        });
+	      }).catch(function (error) {
+	        return console.log(error);
+	      });
+	    }
+	  }, {
+	    key: '_filterSumByUser',
+	    value: function _filterSumByUser() {
+
+	      // an array of objects containing transaction information
+	      var trans = this.state.transactions;
+
+	      // instantiate array to contain only names from the transaction objects
+	      var nameArr = [];
+
+	      // retrieve names from transaction objects
+	      trans.map(function (transaction) {
+	        nameArr = nameArr.concat(transaction.second_user_name);
+	      });
+
+	      // get another array (filtering unique names from nameArr)
+	      var uniqueArr = Array.from(new Set(nameArr));
+
+	      console.log("uniqueArr is ", uniqueArr);
+
+	      // instanstiate an object to hold <key> names and their <value> net amounts
+	      var netAmt = {};
+
+	      // for the number of unique names, loop through the object array
+	      for (var i = 0; i < uniqueArr.length; i++) {
+	        // important to instantiate the <key> and <value> here
+	        netAmt[uniqueArr[i]] = 0;
+	        // an inner loop to match names in uniqueArr and those per object; if there is a match, add the amount of that transaction to the unique name
+	        trans.map(function (transaction) {
+	          if (transaction.second_user_name == uniqueArr[i]) {
+	            console.log(netAmt[uniqueArr[i]]);
+
+	            netAmt[uniqueArr[i]] += transaction.amount;
+	          }
+	        });
+	      }
+
+	      console.log(netAmt);
+
+	      return nameArr;
+	    }
+
+	    //
+	    // _sumTransactions() {
+	    //   let sum = this.state.transactions
+	    //   .reduce((previousValue, currentValue) => previousValue + currentValue.amount, 0)
+	    //
+	    //   return (
+	    //     <tr>
+	    //     <td>Total</td>
+	    //     <td>-</td>
+	    //     <td>-</td>
+	    //     <td>{sum < 0 ? this.toPay : this.toCollect }</td>
+	    //     <td>{sum < 0 ? -sum : sum }</td>
+	    //     </tr>
+	    //   )
+	    // }
+	    //
+	    //
+
+	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this._getUserTransactions();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -27639,15 +27732,20 @@
 	          ),
 	          'transaction ',
 	          _react2.default.createElement('br', null)
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          this._filterSumByUser()
 	        )
 	      );
 	    }
 	  }]);
 
-	  return Transaction;
+	  return EachTransaction;
 	}(_react2.default.Component);
 
-	exports.default = Transaction;
+	exports.default = EachTransaction;
 
 /***/ },
 /* 241 */
