@@ -1,8 +1,31 @@
+@font-face {
+  font-family: DIN;
+  src: url("DIN_Alternate_Regular.otf") format("opentype"); }
 body {
   height: 100vh; }
 
 nav div span img {
   border-radius: 10px; }
+
+figure {
+  -webkit-box-shadow: 0 7px 10px -10px #3E5C76, 5px 7px 10px -7px #3E5C76, -5px 7px 10px -7px #3E5C76,0 -4px 10px -7px #3E5C76;
+  -moz-box-shadow: 0 7px 10px -10px #3E5C76, 5px 7px 10px -7px #3E5C76, -5px 7px 10px -7px #3E5C76,0 -4px 10px -7px #3E5C76;
+  box-shadow: 0 7px 10px -10px #3E5C76, 5px 7px 10px -7px #3E5C76, -5px 7px 10px -7px #3E5C76,0 -4px 10px -7px #3E5C76; }
+  figure p {
+    color: #e74c3c;
+    font-size: 36px; }
+
+figure:nth-child(1) img {
+  min-height: 100%; }
+
+figure:nth-child(5) {
+  background-color: white; }
+  figure:nth-child(5) img {
+    opacity: 0.95;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    z-index: -1; }
 
 .column .box {
   height: 30vh; }
@@ -55,13 +78,19 @@ nav div span img {
 .mini-space {
   margin-top: 10px; }
 
-.row-space {
-  margin: 0 10px; }
+.centyr p strong {
+  color: #3E5C76;
+  font-size: 1.5em;
+  font-family: DIN; }
+
+.centyr p:nth-child(2) {
+  font-size: 17px; }
 
 #navigation {
   width: 100%; }
 
 #navigation button {
+  cursor: url("../images/click-gesture.png"), pointer;
   position: relative;
   width: 100px;
   height: 490px;
@@ -108,8 +137,7 @@ nav div span img {
   width: 500px;
   height: 400px;
   left: 5px;
-  top: 50px;
-  border: 1px dotted black; }
+  top: 50px; }
 
 #carousel figure:nth-child(1) {
   transform: rotateY(0deg) translateZ(400px); }
@@ -125,5 +153,9 @@ nav div span img {
 
 #carousel figure:nth-child(5) {
   transform: rotateY(288deg) translateZ(400px); }
+
+#the-last {
+  color: #1abc9c;
+  font-weight: 300; }
 
 /*# sourceMappingURL=style.css.map */

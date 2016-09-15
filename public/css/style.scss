@@ -7,6 +7,10 @@ $link:       #4CB8C4;
 $hover-link: #F7B2B7;
 $tab:        #F9C554;
 
+@font-face {
+   font-family: DIN;
+   src: url('DIN_Alternate_Regular.otf') format("opentype");;
+}
 
 // ELEMENTS
 
@@ -16,6 +20,32 @@ body {
 
 nav div span img {
     border-radius: 10px;
+}
+
+figure {
+  -webkit-box-shadow: 0 7px 10px -10px #3E5C76, 5px 7px 10px -7px #3E5C76, -5px 7px 10px -7px #3E5C76,0 -4px 10px -7px #3E5C76;
+  -moz-box-shadow: 0 7px 10px -10px #3E5C76, 5px 7px 10px -7px #3E5C76, -5px 7px 10px -7px #3E5C76,0 -4px 10px -7px #3E5C76;
+  box-shadow: 0 7px 10px -10px #3E5C76, 5px 7px 10px -7px #3E5C76, -5px 7px 10px -7px #3E5C76,0 -4px 10px -7px #3E5C76;
+  p {
+    color: $to-pay;
+    font-size: 36px;
+  }
+}
+
+figure:nth-child(1) img {
+  min-height: 100%;
+}
+
+
+figure:nth-child(5) {
+  background-color: white;
+  img {
+    opacity: 0.95;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    z-index: -1
+  }
 }
 
 // CLASSES
@@ -82,8 +112,15 @@ nav div span img {
   margin-top: 10px;
 }
 
-.row-space {
-  margin: 0 10px;
+
+.centyr p strong {
+  color: $login;
+  font-size: 1.5em;
+  font-family: DIN;
+}
+
+.centyr p:nth-child(2) {
+  font-size: 17px;
 }
 
 // IDS
@@ -94,6 +131,7 @@ nav div span img {
 
 
 #navigation button {
+  cursor: url('../images/click-gesture.png'), pointer;
   position: relative;
   width: 100px;
   height: 490px;
@@ -151,7 +189,7 @@ nav div span img {
   height: 400px;
   left: 5px;
   top: 50px;
-  border: 1px dotted black;
+  // border: 1px dotted black;
 }
 
 #carousel figure:nth-child(1) { transform: rotateY(   0deg ) translateZ( 400px ); }
@@ -159,3 +197,8 @@ nav div span img {
 #carousel figure:nth-child(3) { transform: rotateY(  144deg ) translateZ( 400px ); }
 #carousel figure:nth-child(4) { transform: rotateY( 216deg ) translateZ( 400px ); }
 #carousel figure:nth-child(5) { transform: rotateY( 288deg ) translateZ( 400px ); }
+
+#the-last {
+  color: #1abc9c;
+  font-weight: 300;
+}
