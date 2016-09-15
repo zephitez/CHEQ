@@ -31,13 +31,13 @@ module.exports = {
 
   //getting all transaction for req.user
   getTransaction: function(req, res) {
-      let user = req.user;
+      var user = req.user;
 
       Transaction.find({ '_id': {$in : user.transactions} } )
       .populate('second_user')
       .exec(function (err, result) {
-        let outputValue = result.map( (transaction) => {
-          let transactionToFrontend = {};
+        var outputValue = result.map( (transaction) => {
+          var transactionToFrontend = {};
              transactionToFrontend.second_user_name = transaction.second_user.facebook.name;
              transactionToFrontend.amount = transaction.amount;
              transactionToFrontend.item = transaction.item;
@@ -49,7 +49,7 @@ module.exports = {
   },
 
   createTransaction: function(req, res) {
-      let firstUser = req.user;
+      var firstUser = req.user;
       User.findOne({
           'facebook.name': req.body.friend
         }, function(err, secondUser) {
@@ -57,8 +57,8 @@ module.exports = {
           if (err) return done(err);
           if (secondUser) {
 
-           let primaryTransaction = {};
-           let secondaryTransaction = {};
+           var primaryTransaction = {};
+           var secondaryTransaction = {};
 
               primaryTransaction.first_user = firstUser._id;
               primaryTransaction.second_user = secondUser._id;
@@ -74,7 +74,7 @@ module.exports = {
               secondaryTransaction.updatedAt = new Date();
               secondaryTransaction.createdAt = new Date();
 
-            let groupTransaction = [primaryTransaction, secondaryTransaction];
+            var groupTransaction = [primaryTransaction, secondaryTransaction];
 
             Transaction.collection.insert(groupTransaction, function(err, docs){
               if(err) {
