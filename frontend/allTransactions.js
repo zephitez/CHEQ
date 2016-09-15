@@ -22,6 +22,7 @@ export default class AllTransactions extends React.Component {
       this.setState({
         transactions: data
       })
+      console.log(data);
     })
     .catch(error => console.log(error))
   }
