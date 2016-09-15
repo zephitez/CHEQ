@@ -54,6 +54,16 @@ _sumTransactions() {
   )
 }
 
+_summary(){
+  let sum = this.state.transactions
+  .reduce((previousValue, currentValue) => previousValue + currentValue.amount, 0)
+
+  return (
+    <div className="box has-text-centered">
+      <h2 className="subtitle">You Have <strong>{sum < 0 ? this.toPay : this.toCollect } {sum < 0 ? -sum : sum }</strong> In Total.</h2>
+    </div>
+  )
+}
 
   componentWillMount(){
     this._getTransaction();
@@ -62,7 +72,7 @@ _sumTransactions() {
 
     return(
       <div>
-        <h3 className="title">All Activities</h3>
+        {this._summary()}
         <table className="table">
           <thead>
             <tr>
