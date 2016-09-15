@@ -14,6 +14,11 @@ export default class Form extends React.Component{
     event.preventDefault()
 
     const friend = this._friend.value;
+    
+    if ( this._option.value == 1 ) {
+      this._price.value = -this._price.value;
+    }
+
     const amount = this._price.value;
     const item = this._description.value;
 
@@ -23,7 +28,6 @@ export default class Form extends React.Component{
     // transaction.getAll().then(data => console.log(data))
     transaction.create(data)
       .then(data => {
-        console.log(data)
 
       })
       .catch(error => console.log(error))
@@ -43,9 +47,9 @@ export default class Form extends React.Component{
               <div className="control is-grouped">
                 <p className="control has-addons is-expanded">
                   <span className="select is-medium">
-                    <select>
-                    <option id="pay-to">Pay To</option>
-                    <option id="collect-from">Collect From</option>
+                    <select ref={(input) => this._option = input}>
+                    <option value="1" >Pay To</option>
+                    <option value="2" >Collect From</option>
                     </select>
                   </span>
                 </p>

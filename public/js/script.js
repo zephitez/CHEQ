@@ -27701,6 +27701,11 @@
 	      event.preventDefault();
 
 	      var friend = this._friend.value;
+
+	      if (this._option.value == 1) {
+	        this._price.value = -this._price.value;
+	      }
+
 	      var amount = this._price.value;
 	      var item = this._description.value;
 
@@ -27708,9 +27713,7 @@
 
 	      var transaction = new _Transaction2.default(data);
 	      // transaction.getAll().then(data => console.log(data))
-	      transaction.create(data).then(function (data) {
-	        console.log(data);
-	      }).catch(function (error) {
+	      transaction.create(data).then(function (data) {}).catch(function (error) {
 	        return console.log(error);
 	      });
 	    }
@@ -27750,15 +27753,17 @@
 	                      { className: 'select is-medium' },
 	                      _react2.default.createElement(
 	                        'select',
-	                        null,
+	                        { ref: function ref(input) {
+	                            return _this2._option = input;
+	                          } },
 	                        _react2.default.createElement(
 	                          'option',
-	                          { id: 'pay-to' },
+	                          { value: '1' },
 	                          'Pay To'
 	                        ),
 	                        _react2.default.createElement(
 	                          'option',
-	                          { id: 'collect-from' },
+	                          { value: '2' },
 	                          'Collect From'
 	                        )
 	                      )
