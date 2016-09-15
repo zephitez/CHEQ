@@ -1,6 +1,6 @@
 export default class BaseModel {
   constructor() {
-    this.baseUrl = `http://cheq.herokuapp.com`
+    this.baseUrl = `http://localhost:3000`
     this.baseRoute = ''
     this.headers = new Headers({
       userId: window.localStorage.getItem('userId'),
@@ -15,7 +15,8 @@ export default class BaseModel {
     return fetch(`${this.baseUrl}/${this.baseRoute}/new`, {method: 'POST', body: this.data, headers: this.headers})
       .then(result => result.json())
   }
-  get(id) {
-
+  getAllFriends() {
+    return fetch(`${this.baseUrl}/${this.baseRoute}`, {method: 'GET', headers: this.headers})
+      .then(result => result.json())
   }
 }

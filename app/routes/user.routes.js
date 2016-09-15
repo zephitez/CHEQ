@@ -9,6 +9,10 @@ module.exports = function(app, passport) {
   app.route('/dashboard/*')
     .get(isLoggedIn, userController.reactDashboard);
 
+  //-------- Get Friends --------//
+  app.route('/getfriends')
+    .get(userController.getUser, userController.getFriends);
+
   //-------- Transaction --------//
   app.route('/transaction')
     .get(userController.getUser, userController.getTransaction);

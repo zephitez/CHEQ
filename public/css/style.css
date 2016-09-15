@@ -4,6 +4,9 @@ body {
 nav div span img {
   border-radius: 10px; }
 
+.nav-item p {
+  margin: 0 10px; }
+
 .column .box {
   height: 30vh; }
 

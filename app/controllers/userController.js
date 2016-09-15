@@ -13,6 +13,11 @@ module.exports = {
     }
   },
 
+  getFriends: function(req, res, next) {
+    var user = req.user;
+    return res.json(user.facebook.friends);
+  },
+
   dashboard: function(req, res) {
       res.render('pages/user/dashboard', {
         title: 'Profile',

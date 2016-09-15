@@ -21,20 +21,29 @@
         <a class="button is-warning" href="/login">
           <span>Login</span>
         </a>
-      <% } else { %>
+      <% } else if (user.facebook.name) { %>
         <br>
         <p><%= user.facebook.name %></p>
         <br>
         <img src=<%= user.facebook.photo %> />
-
-
-        <a class="button" href="/dashboard">
-          <span>Dashboard</span>
-        </a>
         <a class="button" href="/logout">
           <span>Logout</span>
         </a>
+
+      <% } else if (!user.facebook.name) { %>
+        <br>
+        <p><%= user.local.email %></p>
+        <br>
+      <a class="button is-facebook" href="/connect/facebook">
+        <span type="button">Connect to Facebook
+        </span>
+      </a>
+      <a class="button" href="/logout">
+        <span>Logout</span>
+      </a>
       <% } %>
+
+
     </span>
 
   </div>

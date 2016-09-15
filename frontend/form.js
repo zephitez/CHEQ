@@ -1,16 +1,37 @@
 import React from 'react';
 import User from './models/User'
 import Transaction from './models/Transaction'
+import Friend from './models/Friend'
 
 export default class Form extends React.Component{
   constructor() {
     super()
     this.state = {
-      text: 'hi'
+      friendlist: []
     }
   }
 
-  postTransaction(event){
+  _getFriends(){
+    const friends = new Friend();
+
+    friends.getAllFriends().then(data => {
+      this.setState({
+        friendlist: data
+      })
+    })
+    .catch(error => console.log(error))
+  }
+
+  _displayFriends(){
+    let outputFriend = this.state.friendlist.map( (friend) => {
+      return (
+        <option>{friend}</option>
+      )
+    })
+    return outputFriend;
+  }
+
+  _postTransaction(event){
     event.preventDefault()
 
     const friend = this._friend.value;
@@ -25,7 +46,6 @@ export default class Form extends React.Component{
     const data = { friend, amount, item }
 
     const transaction = new Transaction(data)
-    // transaction.getAll().then(data => console.log(data))
     transaction.create(data)
       .then(data => {
 
@@ -34,13 +54,16 @@ export default class Form extends React.Component{
 
   }
 
+  componentWillMount(){
+    this._getFriends();
+  }
   render(){
     return(
       <div className="columns">
         <div className="box column is-10 is-offset-1">
           <div className="column is-8 is-offset-2">
 
-          <form onSubmit={this.postTransaction.bind(this)}>
+          <form onSubmit={this._postTransaction.bind(this)}>
 
             <h1 className="title">Record a Transaction</h1>
             <div className="control is-horizontal">
@@ -48,14 +71,18 @@ export default class Form extends React.Component{
                 <p className="control has-addons is-expanded">
                   <span className="select is-medium">
                     <select ref={(input) => this._option = input}>
-                    <option value="1" >Pay To</option>
-                    <option value="2" >Collect From</option>
+                      <option value="1" >Pay To</option>
+                      <option value="2" >Collect From</option>
                     </select>
                   </span>
                 </p>
                 <p className="control has-icon">
-                  <input className="input is-medium" placeholder="Friend" ref={(input) => this._friend = input}/>
-                  <i className="fa fa-at"></i>
+                <span className="select is-medium">
+                  <select ref={(input) => this._friend = input}>
+                  <option>Select Friend</option>
+                    {this._displayFriends()}
+                  </select>
+                  </span>
                 </p>
 
                 <p className="control has-icon is-expanded">
