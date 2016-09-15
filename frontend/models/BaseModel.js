@@ -1,6 +1,6 @@
 export default class BaseModel {
   constructor() {
-    this.baseUrl = `http://localhost:3000`
+    this.baseUrl = `http://cheq.herokuapp.com`
     this.baseRoute = ''
     this.headers = new Headers({
       userId: window.localStorage.getItem('userId'),
