@@ -5,16 +5,11 @@ import Transaction from './models/Transaction';
 export default class AllTransactions extends React.Component {
   constructor(){
     super();
-    this.getTransaction = this._getTransaction
-    this.displayTransactions = this._displayTransactions
-    this.sumTransactions = this._sumTransactions
-    this._checkSum()
     this.state = {
-      transactions: [],
-      status: 'to collect',
-      total: 'To Collect',
-      sum: []
+      transactions: []
     }
+    this.toPay = "To Pay";
+    this.toCollect = "To Collect";
   }
 
   _getTransaction(){
@@ -23,30 +18,21 @@ export default class AllTransactions extends React.Component {
     transaction.getAll().then(data => {
       this.setState({
         transactions: data
-
       })
     })
     .catch(error => console.log(error))
   }
 
-  _checkSum() {
-    if (this.sumTransactions < 0) {
-      this.sumTransactions = -this.sumTransactions;
-      this.setState({
-        total: "To pay"
-      })
-    }
-  }
 
 _displayTransactions(){
-let trans = this.state.transactions.map((transaction) => {
+  let trans = this.state.transactions.map((transaction) => {
   return(
     <tr>
-      <td>{transaction.createdAt}</td>
+      <td>{transaction.date}</td>
       <td>{transaction.second_user_name}</td>
       <td>{transaction.item}</td>
-      <td>{transaction.amount < 0 ? 'to pay': 'to collect'}</td>
-      <td>{transaction.amount}</td>
+      <td>{transaction.amount < 0 ? this.toPay : this.toCollect }</td>
+      <td>{transaction.amount < 0 ? -transaction.amount : transaction.amount }</td>
     </tr>
   )
 })
@@ -54,14 +40,23 @@ return trans;
 }
 
 _sumTransactions() {
-  return this.state.transactions
+  let sum = this.state.transactions
   .reduce((previousValue, currentValue) => previousValue + currentValue.amount, 0)
+
+  return (
+    <tr>
+    <td>Total</td>
+    <td>-</td>
+    <td>-</td>
+    <td>{sum < 0 ? this.toPay : this.toCollect }</td>
+    <td>{sum < 0 ? -sum : sum }</td>
+    </tr>
+  )
 }
 
 
   componentWillMount(){
-    this.getTransaction();
-
+    this._getTransaction();
   }
   render(){
 
@@ -78,20 +73,16 @@ _sumTransactions() {
               <th>Amount</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-              <td>Total</td>
-              <td>-</td>
-              <td>-</td>
-              <td>{this.state.total}</td>
-              <td>{this.sumTransactions()}</td>
-            </tr>
-          </tfoot>
           <tbody>
 
-            {this.displayTransactions()}
+            {this._displayTransactions()}
 
           </tbody>
+          <tfoot>
+
+              {this._sumTransactions()}
+
+          </tfoot>
         </table>
       </div>
     )

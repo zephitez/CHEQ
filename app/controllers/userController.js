@@ -41,7 +41,7 @@ module.exports = {
              transactionToFrontend.second_user_name = transaction.second_user.facebook.name;
              transactionToFrontend.amount = transaction.amount;
              transactionToFrontend.item = transaction.item;
-             transactionToFrontend.date = transaction.createdAt;
+             transactionToFrontend.date = transaction.createdAt.toDateString();
           return transactionToFrontend;
         })
         return res.json(outputValue);

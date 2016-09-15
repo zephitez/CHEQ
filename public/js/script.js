@@ -27234,16 +27234,11 @@
 
 	    var _this = _possibleConstructorReturn(this, (AllTransactions.__proto__ || Object.getPrototypeOf(AllTransactions)).call(this));
 
-	    _this.getTransaction = _this._getTransaction;
-	    _this.displayTransactions = _this._displayTransactions;
-	    _this.sumTransactions = _this._sumTransactions;
-	    _this._checkSum();
 	    _this.state = {
-	      transactions: [],
-	      status: 'to collect',
-	      total: 'To Collect',
-	      sum: []
+	      transactions: []
 	    };
+	    _this.toPay = "To Pay";
+	    _this.toCollect = "To Collect";
 	    return _this;
 	  }
 
@@ -27257,25 +27252,16 @@
 	      transaction.getAll().then(function (data) {
 	        _this2.setState({
 	          transactions: data
-
 	        });
 	      }).catch(function (error) {
 	        return console.log(error);
 	      });
 	    }
 	  }, {
-	    key: '_checkSum',
-	    value: function _checkSum() {
-	      if (this.sumTransactions < 0) {
-	        this.sumTransactions = -this.sumTransactions;
-	        this.setState({
-	          total: "To pay"
-	        });
-	      }
-	    }
-	  }, {
 	    key: '_displayTransactions',
 	    value: function _displayTransactions() {
+	      var _this3 = this;
+
 	      var trans = this.state.transactions.map(function (transaction) {
 	        return _react2.default.createElement(
 	          'tr',
@@ -27283,7 +27269,7 @@
 	          _react2.default.createElement(
 	            'td',
 	            null,
-	            transaction.createdAt
+	            transaction.date
 	          ),
 	          _react2.default.createElement(
 	            'td',
@@ -27298,12 +27284,12 @@
 	          _react2.default.createElement(
 	            'td',
 	            null,
-	            transaction.amount < 0 ? 'to pay' : 'to collect'
+	            transaction.amount < 0 ? _this3.toPay : _this3.toCollect
 	          ),
 	          _react2.default.createElement(
 	            'td',
 	            null,
-	            transaction.amount
+	            transaction.amount < 0 ? -transaction.amount : transaction.amount
 	          )
 	        );
 	      });
@@ -27312,14 +27298,44 @@
 	  }, {
 	    key: '_sumTransactions',
 	    value: function _sumTransactions() {
-	      return this.state.transactions.reduce(function (previousValue, currentValue) {
+	      var sum = this.state.transactions.reduce(function (previousValue, currentValue) {
 	        return previousValue + currentValue.amount;
 	      }, 0);
+
+	      return _react2.default.createElement(
+	        'tr',
+	        null,
+	        _react2.default.createElement(
+	          'td',
+	          null,
+	          'Total'
+	        ),
+	        _react2.default.createElement(
+	          'td',
+	          null,
+	          '-'
+	        ),
+	        _react2.default.createElement(
+	          'td',
+	          null,
+	          '-'
+	        ),
+	        _react2.default.createElement(
+	          'td',
+	          null,
+	          sum < 0 ? this.toPay : this.toCollect
+	        ),
+	        _react2.default.createElement(
+	          'td',
+	          null,
+	          sum < 0 ? -sum : sum
+	        )
+	      );
 	    }
 	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this.getTransaction();
+	      this._getTransaction();
 	    }
 	  }, {
 	    key: 'render',
@@ -27370,42 +27386,14 @@
 	            )
 	          ),
 	          _react2.default.createElement(
-	            'tfoot',
-	            null,
-	            _react2.default.createElement(
-	              'tr',
-	              null,
-	              _react2.default.createElement(
-	                'td',
-	                null,
-	                'Total'
-	              ),
-	              _react2.default.createElement(
-	                'td',
-	                null,
-	                '-'
-	              ),
-	              _react2.default.createElement(
-	                'td',
-	                null,
-	                '-'
-	              ),
-	              _react2.default.createElement(
-	                'td',
-	                null,
-	                this.state.total
-	              ),
-	              _react2.default.createElement(
-	                'td',
-	                null,
-	                this.sumTransactions()
-	              )
-	            )
-	          ),
-	          _react2.default.createElement(
 	            'tbody',
 	            null,
-	            this.displayTransactions()
+	            this._displayTransactions()
+	          ),
+	          _react2.default.createElement(
+	            'tfoot',
+	            null,
+	            this._sumTransactions()
 	          )
 	        )
 	      );
