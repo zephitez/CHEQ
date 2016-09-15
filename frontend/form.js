@@ -48,7 +48,7 @@ export default class Form extends React.Component{
     const transaction = new Transaction(data)
     transaction.create(data)
       .then(data => {
-
+        window.location = "/dashboard/all"
       })
       .catch(error => console.log(error))
 
