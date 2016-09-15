@@ -58,12 +58,17 @@ nav div span img {
 .mini-space {
   margin-top: 10px; }
 
+<<<<<<< HEAD
 td.has-text-right {
   padding-right: 20px; }
 
 th.has-text-right {
   text-align: right;
   padding-right: 15px; }
+=======
+.row-space {
+  margin: 0 10px; }
+>>>>>>> 6f5488e620c285154f62bad639f87c37ebf0cfd8
 
 #navigation {
   width: 100%; }

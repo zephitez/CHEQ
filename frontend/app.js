@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, Link, browserHistory } from 'react-router';
 import AllTransactions from './allTransactions';
 import Friend from './friend';
-import Transaction from './transaction';
+import EachTransaction from './eachTransaction';
 import Form from './form';
 import User from './models/User'
 
@@ -15,14 +15,14 @@ class Dashboard extends React.Component {
         <div className="columns">
           <div className="column">
             <div className="box topay">
-              <p className="subtitle"> <strong>PAY</strong></p>
-              <Transaction />
+              <p className="subtitle"> <strong>PAY TO</strong></p>
+              <EachTransaction type="payTo"/>
             </div>
           </div>
           <div className="column">
             <div className="box tocollect">
-              <p className="subtitle"> <strong>COLLECT</strong></p>
-              <Transaction />
+              <p className="subtitle"> <strong>COLLECT FROM</strong></p>
+              <EachTransaction type="collectFrom"/>
             </div>
           </div>
         </div>

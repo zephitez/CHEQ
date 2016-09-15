@@ -66,19 +66,19 @@
 
 	var _allTransactions2 = _interopRequireDefault(_allTransactions);
 
-	var _friend = __webpack_require__(239);
+	var _friend = __webpack_require__(238);
 
 	var _friend2 = _interopRequireDefault(_friend);
 
-	var _transaction = __webpack_require__(240);
+	var _eachTransaction = __webpack_require__(239);
 
-	var _transaction2 = _interopRequireDefault(_transaction);
+	var _eachTransaction2 = _interopRequireDefault(_eachTransaction);
 
-	var _form = __webpack_require__(241);
+	var _form = __webpack_require__(240);
 
 	var _form2 = _interopRequireDefault(_form);
 
-	var _User = __webpack_require__(236);
+	var _User = __webpack_require__(241);
 
 	var _User2 = _interopRequireDefault(_User);
 
@@ -126,10 +126,10 @@
 	                _react2.default.createElement(
 	                  'strong',
 	                  null,
-	                  'PAY'
+	                  'PAY TO'
 	                )
 	              ),
-	              _react2.default.createElement(_transaction2.default, null)
+	              _react2.default.createElement(_eachTransaction2.default, { type: 'payTo' })
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -145,10 +145,10 @@
 	                _react2.default.createElement(
 	                  'strong',
 	                  null,
-	                  'COLLECT'
+	                  'COLLECT FROM'
 	                )
 	              ),
-	              _react2.default.createElement(_transaction2.default, null)
+	              _react2.default.createElement(_eachTransaction2.default, { type: 'collectFrom' })
 	            )
 	          )
 	        )
@@ -27210,11 +27210,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _User = __webpack_require__(236);
-
-	var _User2 = _interopRequireDefault(_User);
-
-	var _Transaction = __webpack_require__(238);
+	var _Transaction = __webpack_require__(236);
 
 	var _Transaction2 = _interopRequireDefault(_Transaction);
 
@@ -27484,19 +27480,23 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var User = function (_BaseModel) {
-	  _inherits(User, _BaseModel);
+	var Transaction = function (_BaseModel) {
+	  _inherits(Transaction, _BaseModel);
 
-	  function User(route) {
-	    _classCallCheck(this, User);
+	  function Transaction(data) {
+	    _classCallCheck(this, Transaction);
 
-	    return _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).call(this, route));
+	    var _this = _possibleConstructorReturn(this, (Transaction.__proto__ || Object.getPrototypeOf(Transaction)).call(this));
+
+	    _this.baseRoute = 'transaction';
+	    _this.data = JSON.stringify(data);
+	    return _this;
 	  }
 
-	  return User;
+	  return Transaction;
 	}(_BaseModel3.default);
 
-	exports.default = User;
+	exports.default = Transaction;
 
 /***/ },
 /* 237 */
@@ -27562,46 +27562,6 @@
 	  value: true
 	});
 
-	var _BaseModel2 = __webpack_require__(237);
-
-	var _BaseModel3 = _interopRequireDefault(_BaseModel2);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Transaction = function (_BaseModel) {
-	  _inherits(Transaction, _BaseModel);
-
-	  function Transaction(data) {
-	    _classCallCheck(this, Transaction);
-
-	    var _this = _possibleConstructorReturn(this, (Transaction.__proto__ || Object.getPrototypeOf(Transaction)).call(this));
-
-	    _this.baseRoute = 'transaction';
-	    _this.data = JSON.stringify(data);
-	    return _this;
-	  }
-
-	  return Transaction;
-	}(_BaseModel3.default);
-
-	exports.default = Transaction;
-
-/***/ },
-/* 239 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
@@ -27646,6 +27606,172 @@
 	exports.default = Friend;
 
 /***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Transaction = __webpack_require__(236);
+
+	var _Transaction2 = _interopRequireDefault(_Transaction);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var EachTransaction = function (_React$Component) {
+	  _inherits(EachTransaction, _React$Component);
+
+	  function EachTransaction() {
+	    _classCallCheck(this, EachTransaction);
+
+	    var _this = _possibleConstructorReturn(this, (EachTransaction.__proto__ || Object.getPrototypeOf(EachTransaction)).call(this));
+
+	    _this.state = {
+	      transactions: []
+	    };
+
+	    return _this;
+	  }
+
+	  _createClass(EachTransaction, [{
+	    key: '_getUserTransactions',
+	    value: function _getUserTransactions() {
+	      var _this2 = this;
+
+	      var transaction = new _Transaction2.default();
+
+	      transaction.getAll().then(function (data) {
+	        _this2.setState({
+	          transactions: data
+	        });
+	      }).catch(function (error) {
+	        return console.log(error);
+	      });
+	    }
+	  }, {
+	    key: '_filterSumByUser',
+	    value: function _filterSumByUser() {
+	      /*
+	      1) Create a new object
+	       forEach
+	       do something to each item in an array
+	       things we want to do
+	       2) check if current object second user name is inside our new object
+	        if not inside - add it in as a new key and also add the amount as the value of that key
+	        if inside - we want to only add increment the amount of that object
+	       */
+
+	      // an array of objects containing transaction information
+	      var trans = this.state.transactions;
+	      console.log('original', trans);
+	      // Step 1
+	      var newObject = {};
+	      // Step 2
+	      trans.forEach(function (obj) {
+	        // not inside
+	        if (newObject[obj.second_user_name] === undefined) {
+	          newObject[obj.second_user_name] = obj.amount;
+	        } else {
+	          newObject[obj.second_user_name] = newObject[obj.second_user_name] + obj.amount;
+	        }
+	      });
+	      // Step 3
+	      var result = [];
+	      for (var prop in newObject) {
+	        if (this.props.type == "payTo" && newObject[prop] < 0) {
+	          result.push(_react2.default.createElement(
+	            'tr',
+	            { key: prop },
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              prop
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { className: 'has-text-right' },
+	              (newObject[prop] * -1).toFixed(2)
+	            )
+	          ));
+	        } else if (this.props.type == "collectFrom" && newObject[prop] > 0) {
+	          result.push(_react2.default.createElement(
+	            'tr',
+	            { key: prop },
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              prop
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { className: 'has-text-right' },
+	              newObject[prop].toFixed(2)
+	            )
+	          ));
+	        }
+	      }
+	      return result;
+	    }
+	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this._getUserTransactions();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var result = this._filterSumByUser();
+	      return _react2.default.createElement(
+	        'table',
+	        { className: 'table' },
+	        _react2.default.createElement(
+	          'thead',
+	          null,
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'th',
+	              null,
+	              'Name'
+	            ),
+	            _react2.default.createElement(
+	              'th',
+	              { className: 'has-text-right' },
+	              'Amount ( $ )'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'tbody',
+	          null,
+	          result
+	        )
+	      );
+	    }
+	  }]);
+
+	  return EachTransaction;
+	}(_react2.default.Component);
+
+	exports.default = EachTransaction;
+
+/***/ },
 /* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -27661,76 +27787,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Transaction = function (_React$Component) {
-	  _inherits(Transaction, _React$Component);
-
-	  function Transaction() {
-	    _classCallCheck(this, Transaction);
-
-	    return _possibleConstructorReturn(this, (Transaction.__proto__ || Object.getPrototypeOf(Transaction)).apply(this, arguments));
-	  }
-
-	  _createClass(Transaction, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          _react2.default.createElement(
-	            'strong',
-	            null,
-	            'User 1 '
-	          ),
-	          'pay or collect',
-	          _react2.default.createElement(
-	            'strong',
-	            null,
-	            ' User 2 '
-	          ),
-	          'transaction ',
-	          _react2.default.createElement('br', null)
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Transaction;
-	}(_react2.default.Component);
-
-	exports.default = Transaction;
-
-/***/ },
-/* 241 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _User = __webpack_require__(236);
+	var _User = __webpack_require__(241);
 
 	var _User2 = _interopRequireDefault(_User);
 
-	var _Transaction = __webpack_require__(238);
+	var _Transaction = __webpack_require__(236);
 
 	var _Transaction2 = _interopRequireDefault(_Transaction);
 
@@ -27922,6 +27983,42 @@
 	}(_react2.default.Component);
 
 	exports.default = Form;
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _BaseModel2 = __webpack_require__(237);
+
+	var _BaseModel3 = _interopRequireDefault(_BaseModel2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var User = function (_BaseModel) {
+	  _inherits(User, _BaseModel);
+
+	  function User(route) {
+	    _classCallCheck(this, User);
+
+	    return _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).call(this, route));
+	  }
+
+	  return User;
+	}(_BaseModel3.default);
+
+	exports.default = User;
 
 /***/ },
 /* 242 */
