@@ -27780,7 +27780,7 @@
 	                  _react2.default.createElement(
 	                    'p',
 	                    { className: 'control has-icon is-expanded' },
-	                    _react2.default.createElement('input', { type: 'number', className: 'input is-medium', placeholder: 'Amount', ref: function ref(input) {
+	                    _react2.default.createElement('input', { type: 'number', step: 'any', className: 'input is-medium', placeholder: 'Amount', ref: function ref(input) {
 	                        return _this2._price = input;
 	                      } }),
 	                    _react2.default.createElement('i', { className: 'fa fa-dollar' })

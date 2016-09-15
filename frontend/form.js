@@ -14,7 +14,7 @@ export default class Form extends React.Component{
     event.preventDefault()
 
     const friend = this._friend.value;
-    
+
     if ( this._option.value == 1 ) {
       this._price.value = -this._price.value;
     }
@@ -59,7 +59,7 @@ export default class Form extends React.Component{
                 </p>
 
                 <p className="control has-icon is-expanded">
-                    <input type="number" className="input is-medium" placeholder="Amount" ref={(input) => this._price = input }/>
+                    <input type="number" step="any" className="input is-medium" placeholder="Amount" ref={(input) => this._price = input }/>
                     <i className="fa fa-dollar"></i>
                 </p>
               </div>
