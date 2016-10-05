@@ -26,7 +26,8 @@ nav div span img {
 
 .centyr {
   margin: 0 auto;
-  text-align: center; }
+  text-align: center;
+  height: 65vh; }
 
 .pirouette {
   margin: 0 auto;
